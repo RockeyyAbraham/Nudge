@@ -175,4 +175,3 @@ Goal: Something you can show, demo, and put on your resume.
 pip install langchain langchain-google-genai python-telegram-bot
 ```
 
-Get that done today.

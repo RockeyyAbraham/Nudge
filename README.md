@@ -44,4 +44,4 @@ Active development. MVP targets the Planner and Coach modules.
 
 ## Author
 
-Rockey — CSE Student, MITS (KTU)
+Rockey Abraham — CSE Student , MITS
