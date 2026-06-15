@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html class="dark" lang="en" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Study Companion | Your Academic Journey, Powered by AI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#94a3b8", // Silver/Slate Blue light
+                        "on-primary": "#0f172a", // Deep Slate
+                        "primary-container": "#334155", // Royal Slate
+                        "on-primary-container": "#f1f5f9",
+                        "secondary": "#cbd5e1", // Silver
+                        "secondary-container": "#1e293b",
+                        "background": "#020617", // Deepest Slate
+                        "surface": "#020617",
+                        "surface-container": "#0f172a",
+                        "surface-container-high": "#1e293b",
+                        "surface-container-highest": "#334155",
+                        "on-background": "#f8fafc",
+                        "on-surface": "#f8fafc",
+                        "on-surface-variant": "#94a3b8",
+                        "outline": "#475569",
+                        "outline-variant": "#1e293b",
+                        "error": "#fca5a5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.75rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "stack-lg": "48px",
+                        "stack-md": "24px",
+                        "stack-sm": "12px",
+                        "container-padding": "32px"
+                    },
+                    "fontFamily": {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "label-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "label-sm": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .royal-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(148, 163, 184, 0.15) 0%, transparent 70%);
+        }
+
+        .text-huge {
+            font-size: clamp(8rem, 25vw, 20rem);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            background: linear-gradient(to bottom, #94a3b8 0%, #1e293b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .animate-float-delayed-more {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+
+<body class="font-body-md selection:bg-primary/30">
+    <!-- TopAppBar -->
+    <header
+        class="bg-surface/80 backdrop-blur-xl border-b border-outline-variant/50 sticky top-0 z-50 flex justify-between items-center px-container-padding py-4 w-full">
+        <div class="flex items-center gap-stack-md">
+
+        </div>
+
+    </header>
+    <main class="royal-gradient">
+        <!-- Hero Section with Giant Anchor -->
+        <section
+            class="relative min-h-screen flex flex-col items-center pt-24 pb-32 px-container-padding text-center overflow-hidden transition-all duration-1000 opacity-100 translate-y-0">
+            <!-- Giant Typographic Anchor -->
+            <div class="absolute top-12 left-1/2 -translate-x-1/2 pointer-events-none select-none z-0">
+                <h2 class="text-huge font-black">NUDGE</h2>
+            </div>
+            <div class="relative z-10 max-w-4xl mt-64 md:mt-80">
+                <h1
+                    class="font-display text-5xl md:text-7xl text-on-background mb-8 leading-[1.1] font-extrabold tracking-tight">
+                    Your Academic Journey, <br> <span class="text-primary">Powered by AI.</span>
+                </h1>
+                <p class="font-body-lg text-lg md:text-xl text-on-surface-variant mb-12 max-w-2xl mx-auto font-medium">
+                    The ultimate AI-powered workspace for modern scholars. Master complex topics, automate your
+                    schedule, and ace your exams with precision tools.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <button
+                        class="px-10 py-5 bg-primary text-on-primary font-bold rounded-full hover:bg-white hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-primary/20">
+                        Get Started for Free
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Mode Overview (Bento Grid) -->
+        <section
+            class="py-32 px-container-padding max-w-7xl mx-auto transition-all duration-1000 opacity-100 translate-y-0"
+            id="modes">
+            <div class="text-center mb-20">
+                <h2 class="font-headline-lg text-4xl md:text-5xl text-on-background mb-4 font-bold tracking-tight">
+                    Multi-Modal Learning</h2>
+                <p class="text-on-surface-variant max-w-xl mx-auto text-lg">Six specialized modes designed to handle
+                    every stage of your academic workflow.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Planner -->
+                <div
+                    class="glass-card p-8 rounded-xl flex flex-col items-center text-center hover:bg-surface-container-high transition-all duration-300 group cursor-pointer border border-outline-variant">
+                    <div
+                        class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform"
+                            data-icon="calendar_today">calendar_today</span>
+                    </div>
+                    <h3 class="text-on-surface mb-2 font-bold text-lg">Planner</h3>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Smart scheduling</p>
+                </div>
+                <!-- Quiz -->
+                <div
+                    class="glass-card p-8 rounded-xl flex flex-col items-center text-center hover:bg-surface-container-high transition-all duration-300 group cursor-pointer border border-outline-variant">
+                    <div
+                        class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <span
+                            class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform"
+                            data-icon="quiz">quiz</span>
+                    </div>
+                    <h3 class="text-on-surface mb-2 font-bold text-lg">Quiz</h3>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Active recall</p>
+                </div>
+                <!-- Revision -->
+                <div
+                    class="glass-card p-8 rounded-xl flex flex-col items-center text-center hover:bg-surface-container-high transition-all duration-300 group cursor-pointer border border-outline-variant">
+                    <div
+                        class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <span
+                            class="material-symbols-outlined text-on-surface-variant group-hover:scale-110 transition-transform"
+                            data-icon="history_edu">history_edu</span>
+                    </div>
+                    <h3 class="text-on-surface mb-2 font-bold text-lg">Revision</h3>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Spaced repetition
+                    </p>
+                </div>
+                <!-- AI Companion -->
+                <div
+                    class="glass-card p-8 rounded-xl border-primary/30 bg-primary/5 flex flex-col items-center text-center hover:bg-primary/10 transition-all duration-300 group cursor-pointer">
+                    <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform"
+                            data-icon="psychology">psychology</span>
+                    </div>
+                    <h3 class="text-on-surface mb-2 font-bold text-lg">AI Assistant</h3>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Contextual tutor</p>
+                </div>
+                <!-- Notes -->
+                <div
+                    class="glass-card p-8 rounded-xl flex flex-col items-center text-center hover:bg-surface-container-high transition-all duration-300 group cursor-pointer border border-outline-variant">
+                    <div
+                        class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <span
+                            class="material-symbols-outlined text-on-surface-variant group-hover:scale-110 transition-transform"
+                            data-icon="description">description</span>
+                    </div>
+                    <h3 class="text-on-surface mb-2 font-bold text-lg">Notes</h3>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Rich formatting</p>
+                </div>
+                <!-- Analytics -->
+                <div
+                    class="glass-card p-8 rounded-xl flex flex-col items-center text-center hover:bg-surface-container-high transition-all duration-300 group cursor-pointer border border-outline-variant">
+                    <div
+                        class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <span
+                            class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform"
+                            data-icon="leaderboard">leaderboard</span>
+                    </div>
+                    <h3 class="text-on-surface mb-2 font-bold text-lg">Analytics</h3>
+                    <p class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Growth tracking</p>
+                </div>
+            </div>
+        </section>
+        <!-- Benefits Section -->
+        <section
+            class="py-32 bg-surface-container/50 relative overflow-hidden transition-all duration-1000 opacity-100 translate-y-0"
+            id="benefits">
+            <div class="max-w-7xl mx-auto px-container-padding">
+                <div class="flex flex-col lg:flex-row items-center gap-24">
+                    <div class="w-full lg:w-1/2">
+                        <h2
+                            class="font-headline-lg text-4xl md:text-5xl text-on-background mb-12 font-bold tracking-tight">
+                            Designed for High-Performance Students</h2>
+                        <div class="space-y-10">
+                            <div class="flex gap-6">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                                    <span class="material-symbols-outlined text-primary text-3xl"
+                                        data-icon="bolt">bolt</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl text-on-surface mb-2 font-bold">Unmatched Efficiency</h4>
+                                    <p class="text-on-surface-variant font-body-md leading-relaxed">Reduce study time by
+                                        40% with AI-generated summaries and automated scheduling that adapts to your
+                                        energy levels.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 border border-secondary/20">
+                                    <span class="material-symbols-outlined text-secondary text-3xl"
+                                        data-icon="psychology_alt">psychology_alt</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl text-on-surface mb-2 font-bold">Stress Reduction</h4>
+                                    <p class="text-on-surface-variant font-body-md leading-relaxed">Stop worrying about
+                                        what to study next. Our algorithm maps out your entire semester, so you just
+                                        show up and learn.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center shrink-0 border border-outline/20">
+                                    <span class="material-symbols-outlined text-primary text-3xl"
+                                        data-icon="trending_up">trending_up</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl text-on-surface mb-2 font-bold">Better Academic Grades</h4>
+                                    <p class="text-on-surface-variant font-body-md leading-relaxed">Scientific
+                                        spaced-repetition and active recall quizzes ensure that information stays in
+                                        your long-term memory for exam day.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 relative">
+                        <div class="aspect-[4/3] rounded-2xl glass-card overflow-hidden flex items-center justify-center border border-outline-variant shadow-2xl"
+                            style="--mouse-x: 213px; --mouse-y: 398px;">
+                            <img alt="Student focused"
+                                class="w-full h-full object-cover grayscale brightness-75 contrast-125 opacity-60 mix-blend-screen"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUaPsVbYRAbhjDx7VBc3VOBzynkITm_x9Nz9mfmfFDgWQkyN58YYbFk4qdFJS6Vx158FIeV9xzmKR_35Ew7VqfmiiaC7ggmc_ub4wxC2PctzGM13rhJJUP6zjn7f1E0u9qyW-x9q6TIWpnbkkGfwzLcQs-9s3KqqscLpupB7yg6ENipOrVPdF3FCuVS9C2sWo7rZWzFBJFp82AgOkX3LPn3mgzmmiyi5AY0mDnbSUd_iojU36yCZdllIbAdw134pUNPTPAgm-7z2E">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Words of Wisdom Section -->
+        <section
+            class="py-32 px-container-padding max-w-7xl mx-auto transition-all duration-1000 opacity-100 translate-y-0"
+            id="words-of-wisdom">
+            <div class="text-center mb-20">
+                <h2 class="font-headline-lg text-4xl md:text-5xl text-on-background mb-4 font-bold tracking-tight">Words
+                    of Wisdom</h2>
+                <p class="text-on-surface-variant text-lg">Fuel your curiosity with timeless insights from history's
+                    greatest minds.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-2xl flex flex-col justify-between border border-outline-variant animate-float shadow-xl"
+                    style="--mouse-x: 382px; --mouse-y: 359.167724609375px;">
+                    <div>
+                        <span class="material-symbols-outlined text-primary text-4xl mb-6 opacity-40"
+                            data-icon="format_quote">format_quote</span>
+                        <p class="italic text-on-surface text-xl leading-relaxed mb-10 font-medium">"Imagination is more
+                            important than knowledge. For knowledge is limited, whereas imagination embraces the entire
+                            world."</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary/50" data-icon="person">person</span>
+                        </div>
+                        <div>
+                            <p class="font-extrabold text-on-surface">Albert Einstein</p>
+                            <p class="text-sm text-on-surface-variant">Theoretical Physicist</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-10 rounded-2xl border-primary/30 bg-primary/5 flex flex-col justify-between animate-float-delayed shadow-xl"
+                    style="--mouse-x: 212px; --mouse-y: 222.45166015625px;">
+                    <div>
+                        <span class="material-symbols-outlined text-primary text-4xl mb-6 opacity-40"
+                            data-icon="format_quote">format_quote</span>
+                        <p class="italic text-on-surface text-xl leading-relaxed mb-10 font-medium">"The roots of
+                            education are bitter, but the fruit is sweet. Knowing yourself is the beginning of all
+                            wisdom."</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary/50" data-icon="person">person</span>
+                        </div>
+                        <div>
+                            <p class="font-extrabold text-on-surface">Aristotle</p>
+                            <p class="text-sm text-on-surface-variant">Philosopher &amp; Polymath</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-10 rounded-2xl flex flex-col justify-between border border-outline-variant animate-float-delayed-more shadow-xl"
+                    style="--mouse-x: 4px; --mouse-y: 259.529052734375px;">
+                    <div>
+                        <span class="material-symbols-outlined text-primary text-4xl mb-6 opacity-40"
+                            data-icon="format_quote">format_quote</span>
+                        <p class="italic text-on-surface text-xl leading-relaxed mb-10 font-medium">"The only way to do
+                            great work is to love what you do. If you haven't found it yet, keep looking. Don't settle."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary/50" data-icon="person">person</span>
+                        </div>
+                        <div>
+                            <p class="font-extrabold text-on-surface">Steve Jobs</p>
+                            <p class="text-sm text-on-surface-variant">Visionary Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CTA Section -->
+        <section class="py-32 px-container-padding text-center transition-all duration-1000 opacity-100 translate-y-0">
+            <div class="mx-auto glass-card rounded-3xl relative overflow-hidden border border-primary/20 shadow-2xl p-12 max-w-7xl md:p-24"
+                style="--mouse-x: 199px; --mouse-y: 1px;">
+                <div class="relative z-10 flex flex-col lg:flex-row items-center gap-12 text-left lg:text-left">
+                    <div class="w-full lg:w-3/5">
+                        <h2
+                            class="font-display text-4xl md:text-5xl text-on-background mb-8 font-extrabold tracking-tight leading-tight">
+                            Ready to Transform Your Study Habits?</h2>
+                        <button
+                            class="px-12 py-6 bg-primary text-on-primary font-bold rounded-full hover:bg-white hover:scale-[1.05] active:scale-95 transition-all text-xl shadow-2xl shadow-primary/30">
+                            Get Started&nbsp;</button>
+                    </div>
+                    <div class="w-full lg:w-2/5">
+                        <div class="rounded-xl overflow-hidden border border-outline-variant/30 shadow-lg">
+                            <img alt="Modern Study Workspace" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSLyTe7FHtnsjBA_QlfAEHX8yIu6irbe-TVoH-F2PwCcDMRXUywZ1RMoMYKcWt38akP9e6Ql5pum7W_Dkm7yWxCMGgRWVL2bF3NToBkhK1ETy4VVIQ9Sdeh_jOC-SoTnRrnCd1ZyDDzADaOOh_RcbHDdNPbpZ5sdnoLLncOE0mH7-_JyBq_cm-REvAAzkajRG4XA_I-WMgArs3ILqaqn0h0KtWKCBhBzcL9H2eTBxLQQvWhVKXD0eoJXg6bahk5cTVQzKRzL0n058">
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-primary/5 pointer-events-none">
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-background border-t border-outline-variant/30 w-full py-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-container-padding">
+            <div class="flex flex-col items-center md:items-start gap-2 mb-8 md:mb-0">
+                <span class="font-display text-xl text-on-surface font-black uppercase tracking-tighter">Nudge</span>
+                <p class="text-[12px] text-on-surface-variant font-medium">© 2024 Study Companion. All rights reserved.
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8">
+                <a class="text-on-surface-variant text-[12px] hover:text-primary transition-colors font-bold uppercase tracking-widest"
+                    href="#">Privacy Policy</a>
+                <a class="text-on-surface-variant text-[12px] hover:text-primary transition-colors font-bold uppercase tracking-widest"
+                    href="#">Terms of Service</a>
+                <a class="text-on-surface-variant text-[12px] hover:text-primary transition-colors font-bold uppercase tracking-widest"
+                    href="#">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Micro-interaction for hover effects on glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Simple scroll reveal
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+    <style>
+        .animate-bounce-slow {
+            animation: bounce 4s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(-3%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+    </style>
+
+
+</body>
+
+</html>
