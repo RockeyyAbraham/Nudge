@@ -273,6 +273,16 @@
             box-shadow: 0 22px 48px rgba(59, 130, 246, 0.36);
         }
 
+        .page-transition-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            background: rgba(2, 6, 23, 0);
+            backdrop-filter: blur(0);
+            -webkit-backdrop-filter: blur(0);
+        }
+
         @keyframes ambient-drift {
             from {
                 transform: translate3d(0, -12px, 0) scale(0.95);
@@ -284,6 +294,7 @@
         }
 
         @keyframes streak-breathe {
+
             0%,
             100% {
                 opacity: 0.08;
@@ -295,6 +306,7 @@
         }
 
         @keyframes geometry-drift {
+
             0%,
             100% {
                 transform: translateY(0) rotate(0deg);
@@ -306,6 +318,7 @@
         }
 
         @keyframes image-float {
+
             0%,
             100% {
                 transform: translateY(0);
@@ -332,6 +345,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             .animate-glow-orb,
             .hero-ambient-orb,
             .hero-light-streak,
@@ -356,7 +370,7 @@
     <main class="royal-gradient">
         <!-- Hero Section -->
         <section
-            class="relative min-h-screen flex flex-col items-start pb-16 px-container-padding text-left overflow-hidden transition-all duration-1000 opacity-100 translate-y-0 max-w-7xl mx-auto w-full">
+            class="relative min-h-screen flex flex-col items-start pb-16 px-container-padding text-left overflow-hidden transition-all duration-1000 opacity-100 translate-y-0 w-full">
             <!-- Animated Blue Gradient Background Glow Orb -->
             <div
                 class="absolute -top-12 left-1/4 w-96 h-96 bg-gradient-to-tr from-[#3b82f6]/20 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none z-0 animate-glow-orb">
@@ -389,7 +403,7 @@
                         next.
                     </p>
                     <div class="relative z-20 flex flex-col sm:flex-row items-start justify-start gap-6">
-                        <a href="#modes"
+                        <a href="login.html" onclick="navigateToLogin(event)"
                             class="hero-cta inline-flex visible opacity-100 px-10 py-5 bg-[#3b82f6] text-white font-bold rounded-full hover:bg-[#2563eb] active:translate-y-0 active:scale-[0.98] items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-4 focus-visible:ring-offset-[#020617]">
                             Get Started
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -403,14 +417,14 @@
                         class="hero-image-shell w-full relative rounded-2xl glass-card border border-outline-variant/30 p-2 overflow-hidden aspect-[4/3]">
                         <img alt="Modern Study Workspace"
                             class="w-full h-full object-cover rounded-xl grayscale brightness-90"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSLyTe7FHtnsjBA_QlfAEHX8yIu6irbe-TVoH-F2PwCcDMRXUywZ1RMoMYKcWt38akP9e6Ql5pum7W_Dkm7yWxCMGgRWVL2bF3NToBkhK1ETy4VVIQ9Sdeh_jOC-SoTnRrnCd1ZyDDzADaOOh_RcbHDdNPbpZ5sdnoLLncOE0mH7-_JyBq_cm-REvAAzkajRG4XA_I-WMgArs3ILqaqn0h0KtWKCBhBzcL9H2eTBxLQQvWhVKXD0eoJXg6bahk5cTVQzKRzL0n058">
+                            src="assets/nudge-study-workspace.png">
                     </div>
                 </div>
             </div>
         </section>
         <!-- Mode Overview (Horizontal Ticker) -->
         <section
-            class="py-10 px-container-padding max-w-7xl mx-auto transition-all duration-1000 opacity-100 translate-y-0"
+            class="py-10 px-container-padding w-full transition-all duration-1000 opacity-100 translate-y-0"
             id="modes">
             <div class="text-left mb-8 max-w-5xl">
                 <h2
@@ -446,7 +460,7 @@
         <section
             class="py-10 bg-surface-container/50 relative overflow-hidden transition-all duration-1000 opacity-100 translate-y-0"
             id="benefits">
-            <div class="max-w-7xl mx-auto px-container-padding">
+            <div class="w-full px-container-padding">
                 <div class="flex flex-col lg:flex-row items-center gap-24">
                     <div class="w-full lg:w-1/2 text-left">
                         <h2
@@ -507,7 +521,7 @@
         </section>
         <!-- Statements Section -->
         <section
-            class="py-10 px-container-padding max-w-7xl mx-auto transition-all duration-1000 opacity-100 translate-y-0"
+            class="py-10 px-container-padding w-full transition-all duration-1000 opacity-100 translate-y-0"
             id="statements">
             <div class="flex flex-col gap-8 text-left max-w-5xl">
                 <p class="font-display text-4xl md:text-6xl font-black leading-tight tracking-tight text-on-background">
@@ -525,13 +539,13 @@
         <!-- CTA Section -->
         <section class="py-10 px-container-padding text-left transition-all duration-1000 opacity-100 translate-y-0">
             <div
-                class="mx-auto glass-card rounded-3xl relative overflow-hidden border border-outline-variant/30 shadow-2xl p-10 max-w-7xl md:p-16">
+                class="w-full glass-card rounded-3xl relative overflow-hidden border border-outline-variant/30 shadow-2xl p-10 md:p-16">
                 <div class="relative z-10 flex flex-col lg:flex-row items-center gap-12 text-left lg:text-left">
                     <div class="w-full lg:w-3/5">
                         <h2
                             class="font-display text-4xl md:text-5xl text-on-background mb-8 font-black tracking-tight leading-tight">
                             Ready to Transform Your Study Habits?</h2>
-                        <button
+                        <button onclick="navigateToLogin(event)"
                             class="px-10 py-5 bg-[#3b82f6] text-white font-bold rounded-full hover:bg-[#2563eb] hover:scale-[1.05] active:scale-95 transition-all text-lg shadow-2xl shadow-[#3b82f6]/30 flex items-center gap-2">
                             Start Planning
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -567,7 +581,37 @@
             </div>
         </div>
     </footer>
+    <div class="page-transition-overlay" id="page-transition-overlay" aria-hidden="true"></div>
     <script>
+        function navigateToLogin(event) {
+            event.preventDefault();
+
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            lenis.stop();
+
+            gsap.timeline({
+                onComplete: () => {
+                    window.location.href = 'login.html';
+                }
+            })
+                .to('#page-transition-overlay', {
+                    backgroundColor: 'rgba(2, 6, 23, 0.48)',
+                    backdropFilter: 'blur(10px)',
+                    duration: 0.55,
+                    ease: 'power2.inOut'
+                }, 0)
+                .to('main, footer', {
+                    scale: 1.025,
+                    opacity: 0.72,
+                    duration: 0.55,
+                    ease: 'power2.inOut'
+                }, 0);
+        }
+
         // Micro-interaction for hover effects on glass cards
         document.querySelectorAll('.glass-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
