@@ -69,9 +69,25 @@
         body {
             background-color: #020617;
             color: #f8fafc;
-            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Lenis smooth scroll styling */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis-stopped {
+            overflow: hidden;
+        }
+        .lenis-scrolling iframe {
+            pointer-events: none;
         }
 
         .glass-card {
@@ -96,15 +112,15 @@
 
         @keyframes float {
             0% {
-                transform: translateY(0px);
+                transform: translateY(calc(var(--parallax-y, 0) * 1px));
             }
 
             50% {
-                transform: translateY(-10px);
+                transform: translateY(calc(var(--parallax-y, 0) * 1px - 10px));
             }
 
             100% {
-                transform: translateY(0px);
+                transform: translateY(calc(var(--parallax-y, 0) * 1px));
             }
         }
 
@@ -122,6 +138,11 @@
             animation-delay: 4s;
         }
     </style>
+    <!-- GSAP Core and Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 </head>
 
 <body class="font-body-md selection:bg-primary/30">
@@ -433,23 +454,120 @@
             });
         });
 
-        // Simple scroll reveal
-        const observerOptions = {
-            threshold: 0.1
-        };
+        // Initialize Lenis smooth scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+            infinite: false
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+        // Sync ScrollTrigger with Lenis
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Remove CSS transition from sections to prevent conflicts with GSAP animations
+        gsap.set('main > section', { transition: 'none' });
+
+        // 1. Hero section stagger on load (heading, subtext, CTA button)
+        const heroElements = [
+            document.querySelector('main > section h1'),
+            document.querySelector('main > section p'),
+            document.querySelector('main > section button')
+        ].filter(Boolean);
+
+        if (heroElements.length > 0) {
+            gsap.from(heroElements, {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+        }
+
+        // 2. Every section (other than Hero) fades in and slides up 40px on scroll
+        const scrollSections = gsap.utils.toArray('main > section').slice(1);
+        scrollSections.forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                ease: 'power2.out'
+            });
+        });
+
+        // 3. Feature cards stagger in with 0.15s delay between each card
+        const featureCards = gsap.utils.toArray('#modes .glass-card');
+        if (featureCards.length > 0) {
+            gsap.from(featureCards, {
+                scrollTrigger: {
+                    trigger: '#modes',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out',
+                onStart: () => {
+                    gsap.set(featureCards, { transition: 'none' });
+                },
+                onComplete: () => {
+                    gsap.set(featureCards, { clearProps: 'transition' });
                 }
             });
-        }, observerOptions);
+        }
 
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
-            observer.observe(section);
+        // 5. Floating elements subtle parallax on scroll
+        // A. Giant NUDGE background text
+        const textHuge = document.querySelector('.text-huge');
+        if (textHuge) {
+            gsap.to(textHuge, {
+                y: 120,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: 'main',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
+
+        // B. Words of Wisdom cards (individual floating speed + scroll parallax)
+        const wisdomCards = gsap.utils.toArray('#words-of-wisdom .glass-card');
+        const parallaxSpeeds = [-40, -80, -60];
+        wisdomCards.forEach((card, index) => {
+            const speed = parallaxSpeeds[index % parallaxSpeeds.length];
+            gsap.to(card, {
+                '--parallax-y': speed,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#words-of-wisdom',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
         });
     </script>
     <style>
