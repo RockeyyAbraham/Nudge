@@ -167,6 +167,21 @@
         .animate-glow-orb {
             animation: glow-orb 15s ease-in-out infinite;
         }
+
+        /* Architectural outline nudge background text styling */
+        .text-outline-nudge {
+            font-size: clamp(10rem, 18vw, 25rem);
+            line-height: 0.7;
+            letter-spacing: -0.05em;
+            -webkit-text-stroke: 2px #3b82f6;
+            text-stroke: 2px #3b82f6;
+            color: transparent;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 950;
+            opacity: 0.35;
+            user-select: none;
+            pointer-events: none;
+        }
     </style>
     <!-- GSAP Core and Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
@@ -190,6 +205,11 @@
             class="relative flex flex-col items-start pt-20 pb-12 px-container-padding text-left overflow-hidden transition-all duration-1000 opacity-100 translate-y-0 max-w-7xl mx-auto w-full">
             <!-- Animated Blue Gradient Background Glow Orb -->
             <div class="absolute -top-12 left-1/4 w-96 h-96 bg-gradient-to-tr from-[#3b82f6]/20 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none z-0 animate-glow-orb"></div>
+            
+            <!-- Giant Architectural Outline Text -->
+            <div class="absolute top-12 left-8 pointer-events-none select-none z-0">
+                <h2 class="text-outline-nudge select-none">NUDGE</h2>
+            </div>
             
             <div class="relative z-10 max-w-5xl mt-12 w-full">
                 <h1
