@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Complete Your Profile | Nudge</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&amp;family=Public+Sans:wght@500;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#595f67",
+                    "on-background": "#1b1c1d",
+                    "tertiary": "#5d5e63",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#f4f4f9",
+                    "surface-container-high": "#e9e8e9",
+                    "primary-fixed-dim": "#c1c7d0",
+                    "inverse-primary": "#c1c7d0",
+                    "surface-container-low": "#f5f3f4",
+                    "on-primary-container": "#6a7079",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#41474f",
+                    "secondary-container": "#dcdddd",
+                    "surface-tint": "#595f67",
+                    "outline": "#75777b",
+                    "tertiary-fixed": "#e2e2e7",
+                    "surface": "#faf9fa",
+                    "surface-container-highest": "#e3e2e3",
+                    "outline-variant": "#c5c6cb",
+                    "on-tertiary-fixed": "#1a1c1f",
+                    "on-surface": "#1b1c1d",
+                    "on-primary-fixed": "#161c23",
+                    "primary-container": "#f0f5ff",
+                    "error": "#ba1a1a",
+                    "inverse-surface": "#303031",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-surface-variant": "#45474b",
+                    "background": "#faf9fa",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "secondary-fixed": "#e2e2e2",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dbdadb",
+                    "on-tertiary-container": "#6e6f74",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#5f6161",
+                    "on-tertiary-fixed-variant": "#45474b",
+                    "tertiary-fixed-dim": "#c6c6cb",
+                    "secondary": "#5d5f5f",
+                    "inverse-on-surface": "#f2f0f1",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#dee3ed",
+                    "surface-variant": "#e3e2e3",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#faf9fa",
+                    "surface-container": "#efedee"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "base": "8px",
+                    "margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Noto Serif"],
+                    "label-md": ["Public Sans"],
+                    "headline-lg": ["Noto Serif"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Top Navigation Bar (Consistent with Shared Components) -->
+<header class="flex justify-between items-center px-gutter w-full sticky top-0 z-40 bg-surface dark:bg-surface-dim h-16 border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg font-bold text-on-background dark:text-inverse-on-surface tracking-tight">Nudge</span>
+</div>
+<div class="hidden md:flex items-center gap-gutter">
+<nav class="flex gap-margin">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Library</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary font-label-md text-label-md px-2 py-1" href="#">Profile</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer text-on-surface-variant">notifications</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young male academic, looking directly at the camera with a subtle confident smile. The background is a blurred university library setting with warm, soft-focus lighting. The color palette is composed of muted greys and deep blues, reflecting a corporate and intellectual atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0ojEMdDtAre37OHrxuTiPvR9FJqeOL6GFLwht__SZPAjqklE3K4PUCom1uCEb1ihYU2WVlxBz4YWDSyiGYooF9pHRiJSoqlIzlGbBLZMekEDQ2KBmyhVsLxEtl-DjHVDw3Z3Ebbn9rMwD_lZ-5Y2xzo1GmdhRD1TPOTFdIYPsqm_4-2-1zwxe_xEel_x_o0CANCJZ1gQmpHOGCw9C5fS1LcnSZ-DnYqDeDz7ga0KVoBNV0lHdG4TGdaM_vB6RFbdRglLQaD32NSc"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-gutter py-margin grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Left Column: Branding & Status -->
+<div class="md:col-span-4 space-y-8">
+<div class="bg-primary-container p-8 rounded-xl relative overflow-hidden">
+<div class="relative z-10 flex flex-col items-center text-center">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">NUDGE</h1>
+<p class="font-body-md text-body-md text-on-primary-container mb-8">Refining your academic journey.</p>
+<!-- Progress Indicator -->
+<div class="relative inline-flex items-center justify-center mb-6">
+<svg class="w-32 h-32">
+<circle class="text-secondary-container" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary progress-ring__circle" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="54.6" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-headline-md font-headline-md text-primary">85%</span>
+</div>
+<p class="font-label-md text-label-md font-semibold text-primary uppercase tracking-widest">Almost There</p>
+<p class="font-body-md text-body-md text-on-primary-container mt-2">Just 3 small steps to complete your workspace setup.</p>
+</div>
+<!-- Abstract Decorative Pattern -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary opacity-5 -mr-16 -mt-16 rounded-full"></div>
+</div>
+<!-- Checklist Card -->
+<div class="bg-surface-container-low border border-outline-variant p-6 rounded-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Final Checklist</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md line-through">Account creation</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md line-through">Personal information</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span class="font-label-md text-label-md">Verify student email</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span class="font-label-md text-label-md">Choose subjects of interest</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span class="font-label-md text-label-md">Set daily study reminder</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Forms & Details -->
+<div class="md:col-span-8 space-y-6">
+<!-- Personal Information -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">person</span>
+<h2 class="font-headline-md text-headline-md text-on-background">Personal Information</h2>
+</div>
+<span class="text-primary font-label-md text-label-md cursor-pointer hover:underline">Edit</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex items-center gap-4 col-span-full mb-4">
+<div class="relative group">
+<img class="w-20 h-20 rounded-full object-cover border-2 border-primary-container" data-alt="A portrait of a male graduate student in a studio setting. The lighting is crisp and modern, emphasizing clarity and professionalism. He is wearing a dark charcoal turtleneck. The aesthetic is clean and corporate, featuring a palette of cool grays and deep slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIqANgz0e-7g-80pz0aDTBLnCxqXFYGf09gaXHa4KLGKXhP-wvksB7sKSVpCGrUDW_gErszsaQwYYmIOILjKV3nyl0jFgizO1TB4KZfuLiVhYI46cTaLAIvbPJjDnYbrzXpMU9woL4_g7kmxzqW3IiOlFiTVxWniE5mN5eVnJTeOw5aj9_8GNzKsnbnRzE8CgPQPL6_HdEf3hQzhfq5RYVbVqVbvo8MPdpEamsBVqN8ZiXK952kXs5F9NU4vbSrGQSCbzQNjTFS6k"/>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary p-1 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-background">Julian Vance</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Oxford University • Year 3</p>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Full Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Julian Vance"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">University / Institution</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Oxford University"/>
+</div>
+</div>
+</section>
+<!-- Academic Goals -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">school</span>
+<h2 class="font-headline-md text-headline-md text-on-background">Academic Goals</h2>
+</div>
+<div class="space-y-6">
+<div class="space-y-3">
+<p class="font-label-md text-label-md text-on-surface-variant">What is your primary focus for this semester?</p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<button class="flex items-center justify-center p-3 rounded-lg border border-primary bg-primary-container text-primary font-label-md text-label-md">
+                                Thesis Completion
+                            </button>
+<button class="flex items-center justify-center p-3 rounded-lg border border-outline-variant hover:border-primary hover:bg-surface-container-low transition-colors font-label-md text-label-md">
+                                Exam Preparation
+                            </button>
+<button class="flex items-center justify-center p-3 rounded-lg border border-outline-variant hover:border-primary hover:bg-surface-container-low transition-colors font-label-md text-label-md">
+                                Research &amp; Writing
+                            </button>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Briefly describe your research objective</label>
+<textarea class="w-full bg-surface-container-low border-outline-variant rounded p-3 font-body-md min-h-[100px] focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="e.g. Exploring the socio-economic impacts of digital currency in developing markets..."></textarea>
+</div>
+</div>
+</section>
+<!-- Study Preferences -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">settings_suggest</span>
+<h2 class="font-headline-md text-headline-md text-on-background">Study Preferences</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface">Daily Nudge Reminders</span>
+<div class="w-10 h-5 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface">Focus Mode Integration</span>
+<div class="w-10 h-5 bg-secondary-container rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Preferred Study Time</label>
+<select class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary outline-none">
+<option>Early Bird (5am - 9am)</option>
+<option selected="">Standard (9am - 5pm)</option>
+<option>Night Owl (8pm - 12am)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Action Footer -->
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors px-6 py-3">Save as Draft</button>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-8 py-3 rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg">Complete My Workspace</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navbar for Mobile (As per Destination Rule logic in instructions) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant px-gutter py-2 flex justify-around items-center z-50">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-label-md">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[10px] font-label-md">Library</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-label-md font-bold">Profile</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-label-md">Stats</span>
+</div>
+</footer>
+<script>
+        // Micro-interaction for the checklist
+        document.querySelectorAll('li.flex.items-center.gap-3').forEach(item => {
+            if (!item.classList.contains('opacity-60')) {
+                item.addEventListener('click', () => {
+                    const icon = item.querySelector('.material-symbols-outlined');
+                    if (icon.innerText === 'radio_button_unchecked') {
+                        icon.innerText = 'check_circle';
+                        icon.classList.remove('text-outline');
+                        icon.classList.add('text-primary');
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                        item.classList.add('opacity-60');
+                        item.querySelector('span:last-child').classList.add('line-through');
+                    }
+                });
+            }
+        });
+
+        // Toggle switches interaction
+        document.querySelectorAll('.bg-primary.rounded-full, .bg-secondary-container.rounded-full').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const circle = toggle.querySelector('div');
+                if (toggle.classList.contains('bg-primary')) {
+                    toggle.classList.remove('bg-primary');
+                    toggle.classList.add('bg-secondary-container');
+                    circle.classList.replace('right-1', 'left-1');
+                } else {
+                    toggle.classList.remove('bg-secondary-container');
+                    toggle.classList.add('bg-primary');
+                    circle.classList.replace('left-1', 'right-1');
+                }
+            });
+        });
+    </script>
+</body></html>
