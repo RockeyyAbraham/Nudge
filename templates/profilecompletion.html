@@ -197,11 +197,11 @@
 </div>
 <div class="space-y-1">
 <label class="font-label-md text-label-md text-on-surface-variant">Full Name</label>
-<input class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Julian Vance"/>
+<input id="full-name-input" class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Julian Vance"/>
 </div>
 <div class="space-y-1">
 <label class="font-label-md text-label-md text-on-surface-variant">University / Institution</label>
-<input class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Oxford University"/>
+<input id="university-input" class="w-full bg-surface-container-low border-outline-variant rounded p-2 font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Oxford University"/>
 </div>
 </div>
 </section>
@@ -267,7 +267,7 @@
 <div class="flex items-center justify-between pt-4 border-t border-outline-variant">
 <button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors px-6 py-3">Save as Draft</button>
 <div class="flex gap-4">
-<button class="bg-primary text-on-primary font-label-md text-label-md px-8 py-3 rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg">Complete My Workspace</button>
+<button id="complete-profile-btn" class="bg-primary text-on-primary font-label-md text-label-md px-8 py-3 rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg">Complete My Workspace</button>
 </div>
 </div>
 </div>
@@ -323,6 +323,61 @@
                     circle.classList.replace('left-1', 'right-1');
                 }
             });
+        });
+
+        // Profile Completion Submission API logic
+        const API_BASE = "http://localhost:5000/api/auth";
+        const completeBtn = document.getElementById("complete-profile-btn");
+        const fullNameInput = document.getElementById("full-name-input");
+        const universityInput = document.getElementById("university-input");
+
+        // Validate session token on page load
+        const sessionToken = localStorage.getItem("nudge_session_token");
+        if (!sessionToken) {
+            window.location.href = "login.html";
+        }
+
+        completeBtn.addEventListener("click", async () => {
+            const fullName = fullNameInput.value.trim();
+            const university = universityInput.value.trim();
+
+            if (!fullName || !university) {
+                alert("Please fill in your name and institution.");
+                return;
+            }
+
+            // Disable button and show loading state
+            completeBtn.disabled = true;
+            completeBtn.innerText = "Saving...";
+            completeBtn.classList.add("opacity-70", "cursor-not-allowed");
+
+            try {
+                const response = await fetch(`${API_BASE}/complete-profile`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify({
+                        full_name: fullName,
+                        university: university
+                    })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.message || "Failed to update profile");
+                }
+
+                // Redirect to dashboard on success
+                window.location.href = "dashboard.html";
+            } catch (error) {
+                alert(error.message);
+                // Reset button
+                completeBtn.disabled = false;
+                completeBtn.innerText = "Complete My Workspace";
+                completeBtn.classList.remove("opacity-70", "cursor-not-allowed");
+            }
         });
     </script>
 </body></html>

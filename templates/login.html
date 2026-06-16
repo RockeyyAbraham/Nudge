@@ -93,7 +93,7 @@
 <body class="font-body-md selection:bg-primary/30 min-h-screen w-full flex items-center justify-center overflow-x-hidden overflow-y-auto relative py-6">
 
     <!-- Background Layer (Live home.html blurred) -->
-    <iframe class="absolute inset-0 z-0 login-bg scale-105 w-full h-full" src="home.html" tabindex="-1"
+    <iframe class="absolute inset-0 z-0 login-bg scale-105 w-full h-full" id="bg-iframe" tabindex="-1"
         aria-hidden="true"></iframe>
     <div class="absolute inset-0 z-0 bg-[#020617]/50" aria-hidden="true"></div>
     <div class="absolute inset-0 z-[1] bg-[#020617]" id="login-transition-layer" aria-hidden="true"></div>
@@ -108,31 +108,46 @@
         <span class="text-xs uppercase tracking-[0.25em] font-extrabold text-[#3b82f6] mb-4" id="logo-text">Nudge</span>
         
         <!-- Login Title -->
-        <h1 class="text-3xl font-black text-white mb-2 tracking-tight" id="login-title">Join Nudge.</h1>
+        <h1 class="text-3xl font-black text-white mb-2 tracking-tight" id="login-title">Welcome back.</h1>
         
         <!-- Subtext -->
-        <p class="text-sm text-on-surface-variant mb-8 font-medium" id="login-subtext">Sign in or create an account to continue.</p>
+        <p class="text-sm text-on-surface-variant mb-8 font-medium" id="login-subtext">Enter your email and password to continue.</p>
 
         <!-- Login form -->
         <form class="w-full flex flex-col gap-4" id="login-form">
-            <div class="relative w-full">
-                <input type="email" placeholder="Enter your email" required
+            <div class="relative w-full" id="email-field">
+                <input type="email" placeholder="Enter your email" required id="email-input"
                     class="w-full px-6 py-4 bg-[#0f172a]/90 text-white rounded-full border border-outline/35 focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all outline-none text-center font-medium placeholder-on-surface-variant/40" />
             </div>
-            <div class="relative w-full">
-                <input type="password" placeholder="Enter your password" required
+            <div class="relative w-full" id="password-field">
+                <input type="password" placeholder="Enter your password" required id="password-input"
                     class="w-full px-6 py-4 bg-[#0f172a]/90 text-white rounded-full border border-outline/35 focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all outline-none text-center font-medium placeholder-on-surface-variant/40" />
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <button type="submit"
-                    class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
-                    Login
-                </button>
-                <button type="button"
+            <div class="grid grid-cols-2 gap-4" id="auth-actions">
+                <button type="button" id="signup-btn"
                     class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
                     Sign Up
                 </button>
+                <button type="submit" id="login-btn"
+                    class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
+                    Login
+                </button>
             </div>
+            <div class="hidden w-full flex flex-col gap-4" id="otp-section">
+                <div class="relative w-full">
+                    <input type="text" inputmode="numeric" maxlength="6" placeholder="Enter OTP" id="otp-input"
+                        class="w-full px-6 py-4 bg-[#0f172a]/90 text-white rounded-full border border-outline/35 focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all outline-none text-center font-medium placeholder-on-surface-variant/40" />
+                </div>
+                <button type="button" id="confirm-otp-btn"
+                    class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
+                    Confirm
+                </button>
+                <button type="button" id="resend-otp-btn"
+                    class="text-xs text-[#94a3b8]/70 hover:text-white font-bold transition-colors">
+                    Resend OTP
+                </button>
+            </div>
+            <p class="hidden text-sm text-error font-semibold" id="auth-error"></p>
         </form>
 
         <!-- Divider -->
@@ -144,7 +159,7 @@
 
         <!-- Google OAuth Button -->
         <button id="oauth-g"
-            class="w-full py-4 bg-transparent hover:bg-white/5 active:scale-[0.98] border border-slate-700/60 text-white font-bold rounded-full transition-all flex items-center justify-center gap-3">
+            class="w-full py-4 bg-[#0f172a]/90 hover:bg-white/5 active:scale-[0.98] border border-slate-700/60 text-white font-bold rounded-full transition-all flex items-center justify-center gap-3">
             <svg class="w-5 h-5" viewBox="0 0 24 24" width="20" height="20">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -162,6 +177,12 @@
     <script>
         // Smooth entrance animation for the login card using GSAP
         window.addEventListener('DOMContentLoaded', () => {
+            // Load the background iframe dynamically using location.replace to avoid history pollution
+            const bgIframe = document.getElementById("bg-iframe");
+            if (bgIframe) {
+                bgIframe.contentWindow.location.replace("home.html");
+            }
+
             gsap.to("#login-transition-layer", {
                 opacity: 0,
                 duration: 0.65,
@@ -193,6 +214,175 @@
                 stagger: 0.08,
                 ease: "power2.out",
                 delay: 0.15
+            });
+
+            const API_BASE = "http://localhost:5000/api/auth";
+            const loginForm = document.getElementById("login-form");
+            const loginSubtext = document.getElementById("login-subtext");
+            const emailField = document.getElementById("email-field");
+            const passwordField = document.getElementById("password-field");
+            const emailInput = document.getElementById("email-input");
+            const passwordInput = document.getElementById("password-input");
+            const otpInput = document.getElementById("otp-input");
+            const authActions = document.getElementById("auth-actions");
+            const otpSection = document.getElementById("otp-section");
+            const signupBtn = document.getElementById("signup-btn");
+            const loginBtn = document.getElementById("login-btn");
+            const confirmOtpBtn = document.getElementById("confirm-otp-btn");
+            const resendOtpBtn = document.getElementById("resend-otp-btn");
+            const authError = document.getElementById("auth-error");
+            const loginDivider = document.getElementById("login-divider");
+            const googleButton = document.getElementById("oauth-g");
+
+            let pendingEmail = "";
+
+            const showError = (message) => {
+                authError.textContent = message;
+                authError.classList.remove("hidden");
+            };
+
+            const clearError = () => {
+                authError.textContent = "";
+                authError.classList.add("hidden");
+            };
+
+            const setLoading = (button, isLoading, loadingText) => {
+                if (isLoading) {
+                    button.dataset.defaultText = button.textContent.trim();
+                    button.textContent = loadingText;
+                    button.disabled = true;
+                    button.classList.add("opacity-70", "cursor-not-allowed");
+                    return;
+                }
+
+                button.textContent = button.dataset.defaultText || button.textContent;
+                button.disabled = false;
+                button.classList.remove("opacity-70", "cursor-not-allowed");
+            };
+
+            const requestJson = async (path, body) => {
+                const response = await fetch(`${API_BASE}${path}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Something went wrong");
+                }
+
+                return data;
+            };
+
+            const saveSession = (data) => {
+                if (data.session_token) {
+                    localStorage.setItem("nudge_session_token", data.session_token);
+                }
+
+                if (data.user_id) {
+                    localStorage.setItem("nudge_user_id", data.user_id);
+                }
+            };
+
+            const redirectFromAuth = (redirect) => {
+                if (redirect === "dashboard") {
+                    window.location.href = "dashboard.html";
+                    return;
+                }
+
+                window.location.href = "profilecompletion.html";
+            };
+
+            const showOtpState = (email) => {
+                pendingEmail = email;
+                emailField.classList.add("hidden");
+                passwordField.classList.add("hidden");
+                authActions.classList.add("hidden");
+                loginDivider.classList.add("hidden");
+                googleButton.classList.add("hidden");
+                otpSection.classList.remove("hidden");
+                loginSubtext.textContent = `Check your email for the verification code sent to ${email}`;
+                otpInput.focus();
+            };
+
+            const signup = async (button) => {
+                clearError();
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+
+                if (!email || !password) {
+                    showError("Email and password are required");
+                    return;
+                }
+
+                setLoading(button, true, "Sending...");
+                try {
+                    await requestJson("/signup", { email, password });
+                    showOtpState(email);
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    setLoading(button, false);
+                }
+            };
+
+            signupBtn.addEventListener("click", () => signup(signupBtn));
+
+            loginForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                clearError();
+
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+
+                if (!email || !password) {
+                    showError("Email and password are required");
+                    return;
+                }
+
+                setLoading(loginBtn, true, "Logging in...");
+                try {
+                    const data = await requestJson("/login", { email, password });
+                    saveSession(data);
+                    redirectFromAuth(data.redirect);
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    setLoading(loginBtn, false);
+                }
+            });
+
+            confirmOtpBtn.addEventListener("click", async () => {
+                clearError();
+                const token = otpInput.value.trim();
+
+                if (!token) {
+                    showError("Enter the OTP sent to your email");
+                    return;
+                }
+
+                setLoading(confirmOtpBtn, true, "Confirming...");
+                try {
+                    const data = await requestJson("/verify-otp", {
+                        email: pendingEmail,
+                        token
+                    });
+                    saveSession(data);
+                    window.location.href = "profilecompletion.html";
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    setLoading(confirmOtpBtn, false);
+                }
+            });
+
+            resendOtpBtn.addEventListener("click", () => signup(resendOtpBtn));
+
+            [emailInput, passwordInput, otpInput].forEach((input) => {
+                input.addEventListener("input", clearError);
             });
         });
     </script>
