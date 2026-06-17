@@ -612,6 +612,23 @@
                 }, 0);
         }
 
+        // Reset transitions and scroll when page is shown (handles browser back button / bfcache recovery)
+        window.addEventListener('pageshow', (event) => {
+            gsap.set('#page-transition-overlay', {
+                backgroundColor: 'rgba(2, 6, 23, 0)',
+                backdropFilter: 'blur(0px)',
+                clearProps: "all"
+            });
+            gsap.set('main, footer', {
+                scale: 1,
+                opacity: 1,
+                clearProps: "all"
+            });
+            if (typeof lenis !== 'undefined' && lenis) {
+                lenis.start();
+            }
+        });
+
         // Micro-interaction for hover effects on glass cards
         document.querySelectorAll('.glass-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
