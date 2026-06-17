@@ -55,6 +55,7 @@ Each agent operates independently but shares a common context store — your stu
 ## Tech Stack
 
 Nudge is built on a Python/Flask backend with Supabase as the primary database and auth layer. The AI stack runs on LangChain with Google Gemini as the LLM, and Supabase pgvector handles vector storage for RAG over uploaded study material. The frontend is a custom-built web interface that communicates with the Flask backend.
+
 ---
 
 ## Roadmap
