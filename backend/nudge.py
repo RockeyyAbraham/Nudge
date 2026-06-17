@@ -9,7 +9,7 @@ env_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(env_path)
 
 # Initialize Supabase client
-supabase_url = os.environ.get("SUPABASE_URL")
+supabase_url= os.environ.get("SUPABASE_URL")
 # Use SUPABASE_ANON_KEY as primary, fallback to SUPABASE_KEY
 supabase_key = os.environ.get("SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_KEY")
 
