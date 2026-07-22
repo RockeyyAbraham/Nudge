@@ -344,6 +344,291 @@
             pointer-events: none;
         }
 
+        /* =============================================
+           Cursor-Proximity Glow Effect
+           A multi-layered blue/cyan bloom that follows the
+           user's cursor — tight bright core + wide soft aura.
+           Uses real CSS blur + screen blend for a cinematic
+           volumetric light feel adapted from Vivid Motion's
+           interaction model.
+           ============================================= */
+        .cursor-glow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: visible;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            will-change: opacity;
+        }
+
+        .cursor-glow-container.is-active {
+            opacity: 1;
+        }
+
+        .cursor-glow-core {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(96, 165, 250, 0.7) 0%, rgba(59, 130, 246, 0.3) 35%, transparent 70%);
+            filter: blur(30px);
+            mix-blend-mode: screen;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        .cursor-glow-aura {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.35) 0%, rgba(6, 182, 212, 0.12) 25%, rgba(59, 130, 246, 0.04) 50%, transparent 72%);
+            filter: blur(60px);
+            mix-blend-mode: screen;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        .cursor-glow-outer {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 30%, transparent 65%);
+            filter: blur(80px);
+            mix-blend-mode: screen;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        /* =============================================
+           Benefits Section — Vivid Motion Editorial Layout
+           Left column: scrollable feature points with large
+           commanding headlines. Right column: sticky image
+           that cross-fades as each point scrolls into view.
+           ============================================= */
+        .benefits-section {
+            position: relative;
+            background: rgba(15, 23, 42, 0.4);
+            overflow: hidden;
+        }
+
+        .benefits-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 80px 32px 40px;
+        }
+
+        .benefits-intro {
+            max-width: 900px;
+            margin-bottom: 64px;
+        }
+
+        .benefits-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-weight: 900;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: #f8fafc;
+        }
+
+        .features-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .features-text-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding-right: 16px;
+        }
+
+        .feature-point {
+            padding: 48px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+            opacity: 0.35;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(12px);
+        }
+
+        .feature-point.point-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-point.point-active {
+            opacity: 1;
+        }
+
+        .feature-point:last-child {
+            border-bottom: none;
+        }
+
+        .feature-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .feature-number {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            text-transform: uppercase;
+        }
+
+        .feature-icon {
+            font-size: 1.25rem !important;
+            color: #3b82f6;
+            opacity: 0.7;
+        }
+
+        .feature-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            color: #f8fafc;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #94a3b8;
+            max-width: 480px;
+        }
+
+        .features-visual-col {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+            align-self: start;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(2, 6, 23, 0.6), 0 0 60px rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .features-image-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: #0f172a;
+            overflow: hidden;
+        }
+
+        .feature-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: scale(1.05);
+            will-change: opacity, transform;
+        }
+
+        .feature-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .features-image-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, transparent 50%, rgba(6, 182, 212, 0.04) 100%);
+            z-index: 2;
+        }
+
+        /* Tablet */
+        @media (max-width: 1023px) {
+            .features-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .features-visual-col {
+                position: relative;
+                top: 0;
+                order: -1;
+            }
+
+            .features-image-frame {
+                aspect-ratio: 16 / 9;
+            }
+
+            .benefits-container {
+                padding: 48px 32px;
+            }
+
+            .benefits-intro {
+                margin-bottom: 40px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+            .benefits-container {
+                padding: 32px 16px;
+            }
+
+            .benefits-intro {
+                margin-bottom: 24px;
+            }
+
+            .features-text-col {
+                padding-right: 0;
+            }
+
+            .feature-point {
+                padding: 32px 0;
+            }
+
+            .feature-title {
+                font-size: 1.5rem;
+            }
+
+            .feature-desc {
+                font-size: 0.9rem;
+            }
+
+            .features-image-frame {
+                aspect-ratio: 4 / 3;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .feature-point {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            .feature-img {
+                transition: none;
+            }
+            .feature-img.active {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
 
             .animate-glow-orb,
@@ -456,65 +741,66 @@
                 </div>
             </div>
         </section>
-        <!-- Benefits Section -->
-        <section
-            class="py-10 bg-surface-container/50 relative overflow-hidden transition-all duration-1000 opacity-100 translate-y-0"
-            id="benefits">
-            <div class="w-full px-container-padding">
-                <div class="flex flex-col lg:flex-row items-center gap-24">
-                    <div class="w-full lg:w-1/2 text-left">
-                        <h2
-                            class="font-headline-lg text-4xl md:text-5xl text-on-background mb-10 font-black tracking-tight">
-                            For students who are behind, overwhelmed, or just winging it.</h2>
-                        <div class="space-y-8">
-                            <div class="flex gap-6">
-                                <div
-                                    class="w-14 h-14 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center shrink-0 border border-[#3b82f6]/20">
-                                    <span class="material-symbols-outlined text-[#3b82f6] text-3xl"
-                                        data-icon="bolt">bolt</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl text-on-surface mb-2 font-bold">Unmatched Efficiency</h4>
-                                    <p class="text-on-surface-variant font-body-md leading-relaxed">Reduce study time by
-                                        40% with AI-generated summaries and automated scheduling that adapts to your
-                                        energy levels.</p>
-                                </div>
+        <!-- Benefits Section - Vivid Motion Editorial Layout -->
+        <!-- Left: scrollable feature points with large commanding headlines -->
+        <!-- Right: dynamic image that cross-fades as each point enters view -->
+        <section class="benefits-section" id="benefits">
+            <div class="benefits-container">
+                <div class="benefits-intro">
+                    <h2 class="benefits-headline">For students who are behind, overwhelmed, or just winging it.</h2>
+                </div>
+                <div class="features-layout">
+                    <div class="features-text-col">
+                        <div class="feature-point" data-point="0">
+                            <div class="feature-meta">
+                                <span class="feature-number">01</span>
+                                <span class="material-symbols-outlined feature-icon" data-icon="bolt">bolt</span>
                             </div>
-                            <div class="flex gap-6">
-                                <div
-                                    class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 border border-secondary/20">
-                                    <span class="material-symbols-outlined text-secondary text-3xl"
-                                        data-icon="psychology_alt">psychology_alt</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl text-on-surface mb-2 font-bold">Stress Reduction</h4>
-                                    <p class="text-on-surface-variant font-body-md leading-relaxed">Stop worrying about
-                                        what to study next. Our algorithm maps out your entire semester, so you just
-                                        show up and learn.</p>
-                                </div>
+                            <h3 class="feature-title">Unmatched Efficiency</h3>
+                            <p class="feature-desc">Reduce study time by 40% with AI-generated summaries and automated scheduling that adapts to your energy levels.</p>
+                        </div>
+                        <div class="feature-point" data-point="1">
+                            <div class="feature-meta">
+                                <span class="feature-number">02</span>
+                                <span class="material-symbols-outlined feature-icon" data-icon="psychology_alt">psychology_alt</span>
                             </div>
-                            <div class="flex gap-6">
-                                <div
-                                    class="w-14 h-14 rounded-xl bg-[#3b82f6]/5 flex items-center justify-center shrink-0 border border-outline/20">
-                                    <span class="material-symbols-outlined text-[#3b82f6] text-3xl"
-                                        data-icon="trending_up">trending_up</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl text-on-surface mb-2 font-bold">Better Academic Grades</h4>
-                                    <p class="text-on-surface-variant font-body-md leading-relaxed">Scientific
-                                        spaced-repetition and active recall quizzes ensure that information stays in
-                                        your long-term memory for exam day.</p>
-                                </div>
+                            <h3 class="feature-title">Stress Reduction</h3>
+                            <p class="feature-desc">Stop worrying about what to study next. Our algorithm maps out your entire semester, so you just show up and learn.</p>
+                        </div>
+                        <div class="feature-point" data-point="2">
+                            <div class="feature-meta">
+                                <span class="feature-number">03</span>
+                                <span class="material-symbols-outlined feature-icon" data-icon="trending_up">trending_up</span>
                             </div>
+                            <h3 class="feature-title">Better Academic Grades</h3>
+                            <p class="feature-desc">Scientific spaced-repetition and active recall quizzes ensure that information stays in your long-term memory for exam day.</p>
+                        </div>
+                        <div class="feature-point" data-point="3">
+                            <div class="feature-meta">
+                                <span class="feature-number">04</span>
+                                <span class="material-symbols-outlined feature-icon" data-icon="calendar_month">calendar_month</span>
+                            </div>
+                            <h3 class="feature-title">Smart Scheduling</h3>
+                            <p class="feature-desc">Intelligent time-blocking that automatically prioritizes your最难 subjects when your energy peaks, and reserves review slots when you need them.</p>
+                        </div>
+                        <div class="feature-point" data-point="4">
+                            <div class="feature-meta">
+                                <span class="feature-number">05</span>
+                                <span class="material-symbols-outlined feature-icon" data-icon="insights">insights</span>
+                            </div>
+                            <h3 class="feature-title">Real-Time Progress Tracking</h3>
+                            <p class="feature-desc">Live dashboards show exactly where you're improving and where you're slipping, so you can course-correct before it shows up on your transcript.</p>
                         </div>
                     </div>
-                    <div class="w-full lg:w-1/2 relative">
-                        <div class="aspect-[4/3] rounded-2xl glass-card overflow-hidden flex items-center justify-center border border-outline-variant shadow-2xl"
-                            style="--mouse-x: 213px; --mouse-y: 398px;">
-                            <img alt="Student focused"
-                                class="w-full h-full object-cover grayscale brightness-75 contrast-125 opacity-60 mix-blend-screen"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUaPsVbYRAbhjDx7VBc3VOBzynkITm_x9Nz9mfmfFDgWQkyN58YYbFk4qdFJS6Vx158FIeV9xzmKR_35Ew7VqfmiiaC7ggmc_ub4wxC2PctzGM13rhJJUP6zjn7f1E0u9qyW-x9q6TIWpnbkkGfwzLcQs-9s3KqqscLpupB7yg6ENipOrVPdF3FCuVS9C2sWo7rZWzFBJFp82AgOkX3LPn3mgzmmiyi5AY0mDnbSUd_iojU36yCZdllIbAdw134pUNPTPAgm-7z2E">
+                    <div class="features-visual-col">
+                        <div class="features-image-frame">
+                            <img data-point="0" class="feature-img active" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80&auto=format&fit=crop" alt="Student studying productively with digital planner and laptop" loading="lazy">
+                            <img data-point="1" class="feature-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format&fit=crop" alt="Calm peaceful workspace for focused studying" loading="lazy">
+                            <img data-point="2" class="feature-img" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80&auto=format&fit=crop" alt="Student celebrating academic achievement" loading="lazy">
+                            <img data-point="3" class="feature-img" src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=800&q=80&auto=format&fit=crop" alt="Calendar and scheduling tools for time management" loading="lazy">
+                            <img data-point="4" class="feature-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop" alt="Analytics dashboard showing growth and progress charts" loading="lazy">
                         </div>
+                        <div class="features-image-glow"></div>
                     </div>
                 </div>
             </div>
@@ -770,7 +1056,108 @@
             }
         }
     </style>
+    <!-- =============================================
+    Cursor-Proximity Glow Effect — Multi-Layer Bloom
+    Three concentric glow layers (core/aura/outer) track
+    the cursor with eased interpolation for a cinematic
+    volumetric light feel. Real CSS blur + screen blend
+    creates the bloom. Touch & reduced-motion safe.
+    ============================================= -->
+    <script>
+        (function () {
+            if (window.matchMedia('(pointer: coarse)').matches ||
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
 
+            var hero = document.querySelector('main > section:first-of-type');
+            if (!hero) return;
+
+            if (getComputedStyle(hero).position === 'static') {
+                hero.style.position = 'relative';
+            }
+
+            // Container holds all glow layers
+            var container = document.createElement('div');
+            container.className = 'cursor-glow-container';
+
+            // Three concentric glow layers: tight core → mid aura → wide outer bloom
+            var core = document.createElement('div');
+            core.className = 'cursor-glow-core';
+            var aura = document.createElement('div');
+            aura.className = 'cursor-glow-aura';
+            var outer = document.createElement('div');
+            outer.className = 'cursor-glow-outer';
+
+            container.appendChild(outer);
+            container.appendChild(aura);
+            container.appendChild(core);
+            hero.appendChild(container);
+
+            var rafId = null;
+            var targetX = 0, targetY = 0;
+            var currentX = 0, currentY = 0;
+            var isInside = false;
+
+            // Each layer gets a slightly different lerp speed
+            // Core follows fastest (~10ms), aura medium, outer slowest (~200ms)
+            // This creates a natural "lag" that makes the glow feel organic
+
+            function tick() {
+                var dx = targetX - currentX;
+                var dy = targetY - currentY;
+
+                currentX += dx * 0.14;
+                currentY += dy * 0.14;
+
+                var px = currentX + 'px';
+                var py = currentY + 'px';
+
+                // Position all layers at the same point (they're centered with transform)
+                core.style.left = px;
+                core.style.top = py;
+                aura.style.left = px;
+                aura.style.top = py;
+                outer.style.left = px;
+                outer.style.top = py;
+
+                if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+                    rafId = requestAnimationFrame(tick);
+                } else {
+                    rafId = null;
+                }
+            }
+
+            hero.addEventListener('mouseenter', function () {
+                isInside = true;
+                container.classList.add('is-active');
+            });
+
+            hero.addEventListener('mousemove', function (e) {
+                if (!isInside) return;
+                var rect = hero.getBoundingClientRect();
+                targetX = e.clientX - rect.left;
+                targetY = e.clientY - rect.top;
+
+                if (!rafId) {
+                    rafId = requestAnimationFrame(tick);
+                }
+            });
+
+            hero.addEventListener('mouseleave', function () {
+                isInside = false;
+                container.classList.remove('is-active');
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+            });
+
+            document.addEventListener('mouseleave', function () {
+                container.classList.remove('is-active');
+            });
+        })();
+    </script>
 
 </body>
 
