@@ -627,10 +627,6 @@
                 opacity: 1;
                 transform: none;
             }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
             .animate-glow-orb,
             .hero-ambient-orb,
             .hero-light-streak,
@@ -638,7 +634,6 @@
             .hero-image-shell {
                 animation: none;
             }
-
             .hero-cta {
                 transition: none;
             }
@@ -1156,6 +1151,76 @@
             document.addEventListener('mouseleave', function () {
                 container.classList.remove('is-active');
             });
+        })();
+    </script>
+
+    <!-- =============================================
+    Benefits Section — Scroll-Driven Image Transitions
+    IntersectionObserver watches each feature point.
+    When a point enters the viewport, its corresponding
+    image cross-fades in. The sticky right column keeps
+    the visual anchored while scrolling through points.
+    ============================================= -->
+    <script>
+        (function () {
+            var points = document.querySelectorAll('.feature-point');
+            var images = document.querySelectorAll('.feature-img');
+            if (!points.length || !images.length) return;
+
+            var currentIndex = -1;
+            var isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function activatePoint(index) {
+                if (index === currentIndex) return;
+                currentIndex = index;
+
+                // Update images
+                images.forEach(function (img) {
+                    img.classList.toggle('active', parseInt(img.getAttribute('data-point')) === index);
+                });
+
+                // Update point active state
+                points.forEach(function (pt) {
+                    pt.classList.toggle('point-active', parseInt(pt.getAttribute('data-point')) === index);
+                });
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                var bestEntry = null;
+                var bestRatio = 0;
+
+                entries.forEach(function (entry) {
+                    // Mark visibility for entrance animation
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('point-visible');
+                    }
+
+                    // Track which point has the highest visibility ratio
+                    if (entry.intersectionRatio > bestRatio) {
+                        bestRatio = entry.intersectionRatio;
+                        bestEntry = entry;
+                    }
+                });
+
+                if (bestEntry && bestRatio > 0.15) {
+                    var index = parseInt(bestEntry.target.getAttribute('data-point'));
+                    activatePoint(index);
+                }
+            }, {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: [0, 0.15, 0.3, 0.5, 0.7, 1]
+            });
+
+            points.forEach(function (pt) {
+                observer.observe(pt);
+            });
+
+            // Activate first point on load if reduced motion
+            if (isReduced) {
+                activatePoint(0);
+                points.forEach(function (pt) { pt.classList.add('point-visible'); });
+            }
         })();
     </script>
 
