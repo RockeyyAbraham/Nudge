@@ -7,7 +7,7 @@
     <title>Study Companion | Your Academic Journey, Powered by AI</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
@@ -15,14 +15,14 @@
             theme: {
                 extend: {
                     "colors": {
-                        "primary": "#94a3b8", // Silver/Slate Blue light
-                        "on-primary": "#0f172a", // Deep Slate
-                        "primary-container": "#334155", // Royal Slate
+                        "primary": "#94a3b8",
+                        "on-primary": "#0f172a",
+                        "primary-container": "#334155",
                         "on-primary-container": "#f1f5f9",
-                        "secondary": "#cbd5e1", // Silver
+                        "secondary": "#cbd5e1",
                         "secondary-container": "#1e293b",
-                        "background": "#020617", // Deepest Slate
-                        "surface": "#020617",
+                        "background": "#070808",
+                        "surface": "#070808",
                         "surface-container": "#0f172a",
                         "surface-container-high": "#1e293b",
                         "surface-container-highest": "#334155",
@@ -49,13 +49,13 @@
                         "container-padding": "32px"
                     },
                     "fontFamily": {
-                        "display": ["Plus Jakarta Sans", "sans-serif"],
-                        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
-                        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
-                        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
-                        "body-md": ["Plus Jakarta Sans", "sans-serif"],
-                        "label-md": ["Plus Jakarta Sans", "sans-serif"],
-                        "label-sm": ["Plus Jakarta Sans", "sans-serif"]
+                        "display": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "headline-md": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "body-lg": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "body-md": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "label-md": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "label-sm": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"]
                     }
                 },
             },
@@ -67,10 +67,163 @@
         }
 
         body {
-            background-color: #020617;
+            background-color: #070808;
+            background-color: lab(2.74243 -0.0000149012 0);
             color: #f8fafc;
             -webkit-font-smoothing: antialiased;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-weight: 300;
+        }
+
+        /* =============================================
+           Vivid Motion — Shared Section Dividers
+           Thin architectural borders between sections
+           ============================================= */
+        .shared-section {
+            position: relative;
+            border-top: 1px solid rgba(148, 163, 184, 0.06);
+        }
+
+        .shared-section::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.12), transparent);
+        }
+
+        .shared-section:first-of-type {
+            border-top: none;
+        }
+        .shared-section:first-of-type::after {
+            display: none;
+        }
+
+        /* =============================================
+           Vivid Motion — Transparent Navbar
+           Float above hero, gains background on scroll
+           ============================================= */
+        .navbar-vivid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+            pointer-events: auto;
+        }
+
+        .navbar-vivid.is-scrolled {
+            background: rgba(7, 8, 8, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(148, 163, 184, 0.06);
+        }
+
+        .navbar-vivid-brand {
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .navbar-vivid-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar-vivid-links a {
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-vivid-links a:hover {
+            color: #f8fafc;
+        }
+
+        .navbar-vivid-cta {
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #f8fafc;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 8px 20px;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .navbar-vivid-cta:hover {
+            background: rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        /* =============================================
+           Canvas Background — Fullscreen Grainy Layer
+           Sits behind all content
+           ============================================= */
+        #vivid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Font weight utilities for Inter Tight */
+        .font-weight-200 { font-weight: 200; }
+        .font-weight-300 { font-weight: 300; }
+        .font-weight-400 { font-weight: 400; }
+        .font-weight-500 { font-weight: 500; }
+        .font-weight-600 { font-weight: 600; }
+        .font-weight-700 { font-weight: 700; }
+        .font-weight-800 { font-weight: 800; }
+
+        /* =============================================
+           Vivid Motion — Typography Refinements
+           Ultra-light body, commanding headings
+           ============================================= */
+        .heading-vivid {
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-weight: 200;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+        }
+
+        .heading-vivid strong,
+        .heading-vivid .weight-semibold {
+            font-weight: 600;
+        }
+
+        .body-vivid {
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-weight: 200;
+            letter-spacing: 0.01em;
+            line-height: 1.6;
         }
 
         /* Lenis smooth scroll styling */
@@ -334,12 +487,12 @@
             font-size: clamp(10rem, 18vw, 25rem);
             line-height: 0.7;
             letter-spacing: -0.05em;
-            -webkit-text-stroke: 2px #3b82f6;
-            text-stroke: 2px #3b82f6;
+            -webkit-text-stroke: 1.5px rgba(148, 163, 184, 0.3);
+            text-stroke: 1.5px rgba(148, 163, 184, 0.3);
             color: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 950;
-            opacity: 0.35;
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-weight: 200;
+            opacity: 0.25;
             user-select: none;
             pointer-events: none;
         }
@@ -430,11 +583,11 @@
         }
 
         .benefits-headline {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(2rem, 4vw, 3.25rem);
-            font-weight: 900;
-            letter-spacing: -0.025em;
-            line-height: 1.1;
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+            font-weight: 200;
+            letter-spacing: -0.03em;
+            line-height: 1.0;
             color: #f8fafc;
         }
 
@@ -495,23 +648,25 @@
             opacity: 0.7;
         }
 
-        .feature-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: clamp(1.75rem, 2.8vw, 2.5rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.15;
-            color: #f8fafc;
-            margin-bottom: 12px;
-        }
+                        .feature-title {
+                            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+                            font-size: clamp(2rem, 3vw, 2.75rem);
+                            font-weight: 200;
+                            letter-spacing: -0.03em;
+                            line-height: 1.05;
+                            color: #f8fafc;
+                            margin-bottom: 12px;
+                        }
 
-        .feature-desc {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #94a3b8;
-            max-width: 480px;
-        }
+                        .feature-desc {
+                            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+                            font-size: 1rem;
+                            font-weight: 200;
+                            line-height: 1.7;
+                            color: #94a3b8;
+                            max-width: 480px;
+                            opacity: 0.75;
+                        }
 
         .features-visual-col {
             position: sticky;
@@ -647,7 +802,20 @@
 </head>
 
 <body class="font-body-md selection:bg-primary/30">
-    <main class="royal-gradient">
+    <!-- Vivid Motion — Transparent Navbar -->
+    <nav class="navbar-vivid" id="navbar-vivid">
+        <a class="navbar-vivid-brand" href="#">Nudge</a>
+        <div class="navbar-vivid-links">
+            <a href="#modes">Modes</a>
+            <a href="#benefits">Features</a>
+            <a href="login.html" class="navbar-vivid-cta" onclick="navigateToLogin(event)">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Fullscreen Canvas Background Layer -->
+    <canvas id="vivid-canvas"></canvas>
+
+    <main class="royal-gradient" style="padding-top: 56px;">
         <!-- Hero Section -->
         <section
             class="relative min-h-screen flex flex-col items-start pb-16 px-container-padding text-left overflow-hidden transition-all duration-1000 opacity-100 translate-y-0 w-full">
@@ -673,18 +841,18 @@
                 class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center pt-[clamp(12rem,24vw,18rem)]">
                 <div class="lg:col-span-7 flex flex-col items-start">
                     <h1
-                        class="font-display text-5xl md:text-[72px] text-on-background mb-8 md:mb-12 leading-[1.0] font-black tracking-tighter text-left">
-                        You know what to study. <br> You just don't know where to <span
-                            class="relative inline-block text-white">start.</span>
+                        class="font-display text-6xl md:text-[80px] lg:text-[88px] text-on-background mb-8 md:mb-12 leading-[0.92] font-weight-200 tracking-tighter text-left heading-vivid">
+                        You know what to study. <br> You just don't know where to <strong
+                            class="relative inline-block text-white font-weight-600">start.</strong>
                     </h1>
                     <p
-                        class="font-body-lg text-lg md:text-2xl text-on-surface-variant mb-10 md:mb-14 max-w-3xl text-left font-medium">
+                        class="body-vivid text-lg md:text-xl text-on-surface-variant mb-10 md:mb-14 max-w-3xl text-left font-weight-200 opacity-80">
                         Nudge builds your study plan, tracks what you're ignoring, and tells you exactly what to do
                         next.
                     </p>
                     <div class="relative z-20 flex flex-col sm:flex-row items-start justify-start gap-6">
                         <a href="login.html" onclick="navigateToLogin(event)"
-                            class="hero-cta inline-flex visible opacity-100 px-10 py-5 bg-[#3b82f6] text-white font-bold rounded-full hover:bg-[#2563eb] active:translate-y-0 active:scale-[0.98] items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-4 focus-visible:ring-offset-[#020617]">
+                            class="hero-cta inline-flex visible opacity-100 px-10 py-5 bg-[#3b82f6] text-white font-bold rounded-full hover:bg-[#2563eb] active:translate-y-0 active:scale-[0.98] items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-4 focus-visible:ring-offset-[#070808]">
                             Get Started
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>
                         </a>
@@ -704,13 +872,13 @@
         </section>
         <!-- Mode Overview (Horizontal Ticker) -->
         <section
-            class="py-10 px-container-padding w-full transition-all duration-1000 opacity-100 translate-y-0"
+            class="shared-section py-16 px-container-padding w-full transition-all duration-1000 opacity-100 translate-y-0"
             id="modes">
             <div class="text-left mb-8 max-w-5xl">
                 <h2
-                    class="font-headline-lg text-4xl md:text-5xl text-on-background mb-4 font-black tracking-tight text-left">
-                    Everything you need. Nothing you don't.</h2>
-                <p class="text-on-surface-variant text-lg text-left">Six specialized modes designed to handle
+                    class="heading-vivid text-5xl md:text-6xl text-on-background mb-4 font-weight-200 tracking-tighter text-left">
+                    Everything you need.<br>Nothing you don't.</h2>
+                <p class="body-vivid text-lg text-on-surface-variant text-left opacity-70">Six specialized modes designed to handle
                     every stage of your academic workflow.</p>
             </div>
 
@@ -739,10 +907,10 @@
         <!-- Benefits Section - Vivid Motion Editorial Layout -->
         <!-- Left: scrollable feature points with large commanding headlines -->
         <!-- Right: dynamic image that cross-fades as each point enters view -->
-        <section class="benefits-section" id="benefits">
+        <section class="shared-section benefits-section" id="benefits">
             <div class="benefits-container">
                 <div class="benefits-intro">
-                    <h2 class="benefits-headline">For students who are behind, overwhelmed, or just winging it.</h2>
+                    <h2 class="benefits-headline heading-vivid">For students who are behind,<br>overwhelmed, or just winging it.</h2>
                 </div>
                 <div class="features-layout">
                     <div class="features-text-col">
@@ -802,30 +970,30 @@
         </section>
         <!-- Statements Section -->
         <section
-            class="py-10 px-container-padding w-full transition-all duration-1000 opacity-100 translate-y-0"
+            class="shared-section py-16 px-container-padding w-full transition-all duration-1000 opacity-100 translate-y-0"
             id="statements">
-            <div class="flex flex-col gap-8 text-left max-w-5xl">
-                <p class="font-display text-4xl md:text-6xl font-black leading-tight tracking-tight text-on-background">
-                    "Built by a student who failed to plan."
+            <div class="flex flex-col gap-10 text-left max-w-5xl">
+                <p class="heading-vivid text-5xl md:text-7xl lg:text-8xl font-weight-200 leading-[0.9] tracking-tighter text-on-background">
+                    "Built by a student<br>who failed to plan."
                 </p>
                 <p
-                    class="font-display text-2xl md:text-4xl font-extrabold leading-tight tracking-tight text-on-surface-variant/70">
+                    class="heading-vivid text-3xl md:text-4xl lg:text-5xl font-weight-200 leading-[0.95] tracking-tighter text-on-surface-variant/50">
                     So you don't have to.
                 </p>
-                <p class="font-display text-5xl md:text-7xl font-black leading-none tracking-tighter text-[#3b82f6]">
-                    No fluff. Just action.
+                <p class="heading-vivid text-6xl md:text-8xl lg:text-9xl font-weight-200 leading-[0.85] tracking-tighter text-[#3b82f6]/80">
+                    No fluff.<br>Just action.
                 </p>
             </div>
         </section>
         <!-- CTA Section -->
-        <section class="py-10 px-container-padding text-left transition-all duration-1000 opacity-100 translate-y-0">
+        <section class="shared-section py-16 px-container-padding text-left transition-all duration-1000 opacity-100 translate-y-0">
             <div
                 class="w-full glass-card rounded-3xl relative overflow-hidden border border-outline-variant/30 shadow-2xl p-10 md:p-16">
                 <div class="relative z-10 flex flex-col lg:flex-row items-center gap-12 text-left lg:text-left">
                     <div class="w-full lg:w-3/5">
                         <h2
-                            class="font-display text-4xl md:text-5xl text-on-background mb-8 font-black tracking-tight leading-tight">
-                            Ready to Transform Your Study Habits?</h2>
+                            class="heading-vivid text-5xl md:text-6xl text-on-background mb-8 font-weight-200 tracking-tighter leading-[0.95]">
+                            Ready to Transform<br>Your Study Habits?</h2>
                         <button onclick="navigateToLogin(event)"
                             class="px-10 py-5 bg-[#3b82f6] text-white font-bold rounded-full hover:bg-[#2563eb] hover:scale-[1.05] active:scale-95 transition-all text-lg shadow-2xl shadow-[#3b82f6]/30 flex items-center gap-2">
                             Start Planning
@@ -846,19 +1014,19 @@
         </section>
     </main>
     <!-- Footer -->
-    <footer class="bg-background border-t border-outline-variant/30 w-full py-12">
+    <footer class="shared-section footer bg-background w-full pt-16 pb-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-container-padding">
-            <div class="flex flex-col items-center md:items-start gap-2 mb-8 md:mb-0">
-                <span class="font-display text-xl text-on-surface font-black uppercase tracking-tighter">Nudge</span>
-                <p class="text-[12px] text-on-surface-variant font-medium">Nudge © 2025</p>
+            <div class="flex flex-col items-center md:items-start gap-2 mb-10 md:mb-0">
+                <span class="font-display text-xl text-on-surface font-weight-200 uppercase tracking-[0.3em] opacity-60">Nudge</span>
+                <p class="text-[11px] text-on-surface-variant font-weight-200 tracking-wider opacity-40">Nudge © 2025</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-8">
-                <a class="text-on-surface-variant text-[12px] hover:text-primary transition-colors font-bold uppercase tracking-widest"
-                    href="#">Privacy Policy</a>
-                <a class="text-on-surface-variant text-[12px] hover:text-primary transition-colors font-bold uppercase tracking-widest"
-                    href="#">Terms of Service</a>
-                <a class="text-on-surface-variant text-[12px] hover:text-primary transition-colors font-bold uppercase tracking-widest"
-                    href="#">Contact Support</a>
+            <div class="flex flex-wrap justify-center gap-10">
+                <a class="text-on-surface-variant text-[11px] hover:text-primary transition-colors font-weight-400 uppercase tracking-[0.15em] opacity-50 hover:opacity-100"
+                    href="#">Privacy</a>
+                <a class="text-on-surface-variant text-[11px] hover:text-primary transition-colors font-weight-400 uppercase tracking-[0.15em] opacity-50 hover:opacity-100"
+                    href="#">Terms</a>
+                <a class="text-on-surface-variant text-[11px] hover:text-primary transition-colors font-weight-400 uppercase tracking-[0.15em] opacity-50 hover:opacity-100"
+                    href="#">Contact</a>
             </div>
         </div>
     </footer>
@@ -1221,6 +1389,184 @@
                 activatePoint(0);
                 points.forEach(function (pt) { pt.classList.add('point-visible'); });
             }
+        })();
+    </script>
+
+    <!-- =============================================
+    Vivid Motion — Navbar Scroll Behavior
+    Adds .is-scrolled class when page scrolls past hero
+    ============================================= -->
+    <script>
+        (function () {
+            var navbar = document.getElementById('navbar-vivid');
+            if (!navbar) return;
+
+            var checkScroll = function () {
+                if (window.scrollY > 60) {
+                    navbar.classList.add('is-scrolled');
+                } else {
+                    navbar.classList.remove('is-scrolled');
+                }
+            };
+
+            window.addEventListener('scroll', checkScroll, { passive: true });
+            checkScroll();
+        })();
+    </script>
+
+    <!-- =============================================
+    Vivid Motion — WebGL Grainy Gradient Canvas
+    A subtle grainy gradient overlay that adds depth
+    to the deep black background. Renders a continuous
+    noise-driven gradient using raw WebGL shaders.
+    Touch & reduced-motion safe.
+    ============================================= -->
+    <script>
+        (function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            var canvas = document.getElementById('vivid-canvas');
+            if (!canvas) return;
+
+            var gl = canvas.getContext('webgl', { alpha: true, antialias: false });
+            if (!gl) return;
+
+            function resize() {
+                var dpr = window.devicePixelRatio || 1;
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+                gl.viewport(0, 0, canvas.width, canvas.height);
+            }
+
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Vertex shader — fullscreen quad
+            var vsSource = [
+                'attribute vec2 a_position;',
+                'void main() {',
+                '  gl_Position = vec4(a_position, 0.0, 1.0);',
+                '}'
+            ].join('\n');
+
+            // Fragment shader — animated grainy gradient
+            var fsSource = [
+                'precision highp float;',
+                'uniform vec2 u_resolution;',
+                'uniform float u_time;',
+
+                '// Simple pseudo-random hash',
+                'float hash(vec2 p) {',
+                '  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);',
+                '}',
+
+                '// 2D noise',
+                'float noise(vec2 p) {',
+                '  vec2 i = floor(p);',
+                '  vec2 f = fract(p);',
+                '  f = f * f * (3.0 - 2.0 * f);',
+                '  float a = hash(i);',
+                '  float b = hash(i + vec2(1.0, 0.0));',
+                '  float c = hash(i + vec2(0.0, 1.0));',
+                '  float d = hash(i + vec2(1.0, 1.0));',
+                '  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);',
+                '}',
+
+                'void main() {',
+                '  vec2 uv = gl_FragCoord.xy / u_resolution;',
+                '  // Subtle radial gradient from center',
+                '  vec2 center = uv - 0.5;',
+                '  float dist = length(center);',
+                '  float vignette = 1.0 - dist * 0.6;',
+
+                '  // Slow-moving noise layer',
+                '  vec2 noiseUV = uv * 2.5 + vec2(u_time * 0.008, u_time * 0.006);',
+                '  float n = noise(noiseUV);',
+
+                '  // Second noise layer at different scale',
+                '  vec2 noiseUV2 = uv * 5.0 - vec2(u_time * 0.012, u_time * 0.01);',
+                '  float n2 = noise(noiseUV2);',
+
+                '  // Combine: subtle warm grain over deep cool base',
+                '  float grain = mix(n, n2, 0.3) * 0.12;',
+                '  float brightness = 0.03 + grain + (1.0 - vignette) * 0.02;',
+
+                '  // Very subtle blue-warm tint',
+                '  vec3 color = vec3(',
+                '    0.025 + grain * 0.3,',
+                '    0.025 + grain * 0.2,',
+                '    0.035 + grain * 0.1',
+                '  );',
+
+                '  // Add a faint warm glow in upper area (simulating ambient light)',
+                '  float topGlow = exp(-uv.y * 4.0) * 0.015;',
+                '  color += vec3(topGlow * 1.2, topGlow * 0.8, topGlow * 0.4);',
+
+                '  gl_FragColor = vec4(color, 0.85);',
+                '}'
+            ].join('\n');
+
+            function compileShader(source, type) {
+                var shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.warn('Shader compile error:', gl.getShaderInfoLog(shader));
+                    return null;
+                }
+                return shader;
+            }
+
+            var vs = compileShader(vsSource, gl.VERTEX_SHADER);
+            var fs = compileShader(fsSource, gl.FRAGMENT_SHADER);
+            if (!vs || !fs) { canvas.style.display = 'none'; return; }
+
+            var program = gl.createProgram();
+            gl.attachShader(program, vs);
+            gl.attachShader(program, fs);
+            gl.linkProgram(program);
+            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                console.warn('Program link error');
+                canvas.style.display = 'none';
+                return;
+            }
+
+            gl.useProgram(program);
+
+            // Fullscreen quad (two triangles)
+            var positions = new Float32Array([
+                -1, -1,
+                1, -1,
+                -1, 1,
+                1, -1,
+                1, 1,
+                -1, 1
+            ]);
+
+            var buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+            var attrLoc = gl.getAttribLocation(program, 'a_position');
+            gl.enableVertexAttribArray(attrLoc);
+            gl.vertexAttribPointer(attrLoc, 2, gl.FLOAT, false, 0, 0);
+
+            var resLoc = gl.getUniformLocation(program, 'u_resolution');
+            var timeLoc = gl.getUniformLocation(program, 'u_time');
+
+            var startTime = performance.now();
+
+            function render() {
+                var elapsed = (performance.now() - startTime) / 1000;
+                gl.uniform2f(resLoc, canvas.width, canvas.height);
+                gl.uniform1f(timeLoc, elapsed);
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+                requestAnimationFrame(render);
+            }
+
+            render();
         })();
     </script>
 
