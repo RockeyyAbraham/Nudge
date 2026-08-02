@@ -1,0 +1,23 @@
+<svg width="952" height="680" viewBox="0 0 952 680" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glowQ" cx="50%" cy="0%" r="75%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="952" height="680" fill="#0a0f1e"/>
+  <rect width="952" height="680" fill="url(#glowQ)"/>
+  <rect x="0.5" y="0.5" width="951" height="679" fill="none" stroke="#3b82f6" stroke-opacity="0.25"/>
+  <g stroke="#3b82f6" stroke-opacity="0.08">
+    <line x1="0" y1="170" x2="952" y2="170"/>
+    <line x1="0" y1="340" x2="952" y2="340"/>
+    <line x1="0" y1="510" x2="952" y2="510"/>
+    <line x1="238" y1="0" x2="238" y2="680"/>
+    <line x1="476" y1="0" x2="476" y2="680"/>
+    <line x1="714" y1="0" x2="714" y2="680"/>
+  </g>
+  <text x="56" y="72" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#3b82f6" letter-spacing="1">NUDGE</text>
+  <text x="476" y="360" font-family="Arial, sans-serif" font-size="56" font-weight="700" fill="#ffffff" text-anchor="middle">Quiz &amp; Flashcards</text>
+  <text x="476" y="404" font-family="Arial, sans-serif" font-size="18" fill="#b1c4e0" text-anchor="middle" letter-spacing="0.5">Generated from your own notes and PDFs</text>
+  <text x="476" y="620" font-family="Arial, sans-serif" font-size="13" fill="#3b82f6" fill-opacity="0.6" text-anchor="middle" letter-spacing="1">PREVIEW — REPLACE WITH REAL SCREENSHOT</text>
+</svg>

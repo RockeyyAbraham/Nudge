@@ -1,0 +1,77 @@
+<svg width="156" height="156" viewBox="0 0 156 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="78" cy="78" r="78" fill="white"/>
+<path d="M78 6V10" stroke="#9E9E9E"/>
+<path d="M85.5261 6.39453L85.108 10.3726" stroke="#9E9E9E"/>
+<path d="M92.9695 7.57349L92.1378 11.4861" stroke="#9E9E9E"/>
+<path d="M100.249 9.52393L99.0132 13.3282" stroke="#9E9E9E"/>
+<path d="M107.285 12.2246L105.658 15.8788" stroke="#9E9E9E"/>
+<path d="M114 15.6462L112 19.1103" stroke="#9E9E9E"/>
+<path d="M120.321 19.751L117.969 22.987" stroke="#9E9E9E"/>
+<path d="M126.177 24.4937L123.501 27.4662" stroke="#9E9E9E"/>
+<path d="M131.507 29.8228L128.534 32.4993" stroke="#9E9E9E"/>
+<path d="M136.249 35.6797L133.013 38.0308" stroke="#9E9E9E"/>
+<path d="M140.354 42L136.89 44" stroke="#9E9E9E"/>
+<path d="M143.775 48.7148L140.121 50.3418" stroke="#9E9E9E"/>
+<path d="M146.476 55.751L142.672 56.987" stroke="#9E9E9E"/>
+<path d="M148.427 63.0303L144.514 63.8619" stroke="#9E9E9E"/>
+<path d="M149.605 70.4741L145.627 70.8922" stroke="#9E9E9E"/>
+<path d="M150 78H146" stroke="#9E9E9E"/>
+<path d="M149.605 85.5261L145.627 85.108" stroke="#9E9E9E"/>
+<path d="M148.427 92.9695L144.514 92.1378" stroke="#9E9E9E"/>
+<path d="M146.476 100.249L142.672 99.0132" stroke="#9E9E9E"/>
+<path d="M143.775 107.285L140.121 105.658" stroke="#9E9E9E"/>
+<path d="M140.354 114L136.89 112" stroke="#9E9E9E"/>
+<path d="M136.249 120.321L133.013 117.969" stroke="#9E9E9E"/>
+<path d="M131.506 126.177L128.534 123.501" stroke="#9E9E9E"/>
+<path d="M126.177 131.507L123.501 128.534" stroke="#9E9E9E"/>
+<path d="M120.32 136.25L117.969 133.013" stroke="#9E9E9E"/>
+<path d="M114 140.354L112 136.89" stroke="#9E9E9E"/>
+<path d="M107.285 143.775L105.658 140.121" stroke="#9E9E9E"/>
+<path d="M100.249 146.476L99.013 142.672" stroke="#9E9E9E"/>
+<path d="M92.9697 148.427L92.1381 144.514" stroke="#9E9E9E"/>
+<path d="M85.5259 149.605L85.1078 145.627" stroke="#9E9E9E"/>
+<path d="M78 150V146" stroke="#9E9E9E"/>
+<path d="M70.4739 149.605L70.892 145.627" stroke="#9E9E9E"/>
+<path d="M63.0305 148.427L63.8622 144.514" stroke="#9E9E9E"/>
+<path d="M55.7507 146.476L56.9868 142.672" stroke="#9E9E9E"/>
+<path d="M48.7148 143.775L50.3418 140.121" stroke="#9E9E9E"/>
+<path d="M42 140.354L44 136.89" stroke="#9E9E9E"/>
+<path d="M35.6794 136.249L38.0306 133.013" stroke="#9E9E9E"/>
+<path d="M29.8225 131.507L32.499 128.534" stroke="#9E9E9E"/>
+<path d="M24.4934 126.177L27.466 123.501" stroke="#9E9E9E"/>
+<path d="M19.7507 120.32L22.9868 117.969" stroke="#9E9E9E"/>
+<path d="M15.6462 114L19.1103 112" stroke="#9E9E9E"/>
+<path d="M12.2246 107.285L15.8788 105.658" stroke="#9E9E9E"/>
+<path d="M9.52393 100.249L13.3282 99.013" stroke="#9E9E9E"/>
+<path d="M7.57324 92.9697L11.4858 92.1381" stroke="#9E9E9E"/>
+<path d="M6.39453 85.5259L10.3726 85.1078" stroke="#9E9E9E"/>
+<path d="M6 78H10" stroke="#9E9E9E"/>
+<path d="M6.39453 70.4739L10.3726 70.892" stroke="#9E9E9E"/>
+<path d="M7.57349 63.0305L11.4861 63.8622" stroke="#9E9E9E"/>
+<path d="M9.52393 55.7507L13.3282 56.9868" stroke="#9E9E9E"/>
+<path d="M12.2246 48.7148L15.8788 50.3418" stroke="#9E9E9E"/>
+<path d="M15.6462 42L19.1103 44" stroke="#9E9E9E"/>
+<path d="M19.751 35.6794L22.987 38.0306" stroke="#9E9E9E"/>
+<path d="M24.4937 29.8225L27.4662 32.499" stroke="#9E9E9E"/>
+<path d="M29.8225 24.4934L32.499 27.466" stroke="#9E9E9E"/>
+<path d="M35.6797 19.7507L38.0308 22.9868" stroke="#9E9E9E"/>
+<path d="M42 15.6462L44 19.1103" stroke="#9E9E9E"/>
+<path d="M48.7148 12.2246L50.3418 15.8788" stroke="#9E9E9E"/>
+<path d="M55.751 9.52393L56.987 13.3282" stroke="#9E9E9E"/>
+<path d="M63.0303 7.57324L63.8619 11.4858" stroke="#9E9E9E"/>
+<path d="M70.4741 6.39453L70.8922 10.3726" stroke="#9E9E9E"/>
+<path d="M78 4V12" stroke="#0A0A0A"/>
+<path d="M115 13.9141L111 20.8423" stroke="#0A0A0A"/>
+<path d="M142.086 41L135.158 45" stroke="#0A0A0A"/>
+<path d="M152 78H144" stroke="#0A0A0A"/>
+<path d="M142.086 115L135.158 111" stroke="#0A0A0A"/>
+<path d="M115 142.086L111 135.158" stroke="#0A0A0A"/>
+<path d="M78 152V144" stroke="#0A0A0A"/>
+<path d="M41 142.086L45 135.158" stroke="#0A0A0A"/>
+<path d="M13.9141 115L20.8423 111" stroke="#0A0A0A"/>
+<path d="M4 78H12" stroke="#0A0A0A"/>
+<path d="M13.9141 41L20.8423 45" stroke="#0A0A0A"/>
+<path d="M41 13.9141L45 20.8423" stroke="#0A0A0A"/>
+<circle cx="78" cy="78" r="5" fill="#0A0A0A"/>
+<circle cx="78" cy="78" r="2" fill="white" stroke="#E63A0F" stroke-width="2"/>
+</svg>

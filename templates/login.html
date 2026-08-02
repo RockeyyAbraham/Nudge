@@ -7,8 +7,9 @@
     <title>Nudge | Sign In</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter+Tight:wght@300;400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,300;9..144,500&amp;family=Oxygen+Mono&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
+    <link href="assets/vivid/theme.css" rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -16,14 +17,14 @@
                 extend: {
                     "colors": {
                         "primary": "#94a3b8",
-                        "on-primary": "#0f172a",
+                        "on-primary": "#0a0a0a",
                         "primary-container": "#334155",
                         "on-primary-container": "#f1f5f9",
                         "secondary": "#cbd5e1",
                         "secondary-container": "#1e293b",
-                        "background": "#020617",
-                        "surface": "#020617",
-                        "surface-container": "#0f172a",
+                        "background": "#0a0a0a",
+                        "surface": "#0a0a0a",
+                        "surface-container": "#141414",
                         "surface-container-high": "#1e293b",
                         "surface-container-highest": "#334155",
                         "on-background": "#f8fafc",
@@ -40,9 +41,9 @@
                         "full": "9999px"
                     },
                     "fontFamily": {
-                        "display": ["Plus Jakarta Sans", "sans-serif"],
-                        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
-                        "body-md": ["Plus Jakarta Sans", "sans-serif"]
+                        "display": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "body-lg": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                        "body-md": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"]
                     }
                 },
             },
@@ -50,100 +51,62 @@
     </script>
     <style>
         body {
-            background-color: #020617;
+            background-color: #0a0a0a;
             color: #f8fafc;
             -webkit-font-smoothing: antialiased;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .login-bg {
-            border: 0;
-            pointer-events: none;
-            filter: blur(10px) brightness(0.4);
-        }
-
-        .glass-card {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(148, 163, 184, 0.12);
-            box-shadow: 0 30px 70px rgba(2, 6, 23, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-        }
-
-        @keyframes ambient-orb-drift {
-            0% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            50% {
-                transform: translate(40px, -50px) scale(1.15);
-            }
-            100% {
-                transform: translate(0px, 0px) scale(1);
-            }
-        }
-
-        .animate-ambient-orb {
-            animation: ambient-orb-drift 14s ease-in-out infinite;
+            font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
         }
     </style>
-    <!-- GSAP Core -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+    <!-- GSAP Core, SplitText (self-hosted copies of the Vivid Motion source libraries) -->
+    <script src="assets/vivid/js/gsap.min.js"></script>
+    <script src="assets/vivid/js/SplitText.min.js"></script>
+    <script src="assets/vivid/js/motion.js"></script>
 </head>
 
 <body class="font-body-md selection:bg-primary/30 min-h-screen w-full flex items-center justify-center overflow-x-hidden overflow-y-auto relative py-6">
 
-    <!-- Background Layer (Live home.html blurred) -->
-    <iframe class="absolute inset-0 z-0 login-bg scale-105 w-full h-full" id="bg-iframe" tabindex="-1"
-        aria-hidden="true"></iframe>
-    <div class="absolute inset-0 z-0 bg-[#020617]/50" aria-hidden="true"></div>
-    <div class="absolute inset-0 z-[1] bg-[#020617]" id="login-transition-layer" aria-hidden="true"></div>
+    <!-- Fullscreen grain-gradient background, shared with the rest of the app -->
+    <canvas class="vivid-canvas" id="vivid-canvas"></canvas>
+    <div class="absolute inset-0 z-[1] bg-[#0a0a0a]" id="login-transition-layer" aria-hidden="true"></div>
 
-    <!-- Ambient Glow Orb Behind Card -->
-    <div class="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#3b82f6]/20 to-transparent blur-3xl opacity-75 z-0 pointer-events-none animate-ambient-orb" aria-hidden="true"></div>
+    <!-- Centered Login Card — real dream UI card treatment (.values-grid-card:
+         8px radius, near-black fill, hairline border, no blur/glassmorphism) -->
+    <div class="vivid-card relative z-10 w-full max-w-[440px] px-8 py-12 md:p-12 text-center flex flex-col items-center mx-4 opacity-0 translate-y-4" id="login-card">
 
-    <!-- Centered Glassmorphic Login Card -->
-    <div class="relative z-10 w-full max-w-[440px] px-6 py-12 md:p-12 rounded-3xl glass-card text-center flex flex-col items-center mx-4 opacity-0 translate-y-4" id="login-card">
-        
-        <!-- Small blue Nudge text logo -->
-        <span class="text-xs uppercase tracking-[0.25em] font-extrabold text-[#3b82f6] mb-4" id="logo-text">Nudge</span>
-        
-        <!-- Login Title -->
-        <h1 class="text-3xl font-black text-white mb-2 tracking-tight" id="login-title">Welcome back.</h1>
-        
+        <!-- Small blue Nudge text logo — real mono-uppercase label treatment -->
+        <span class="font-mono-vivid text-xs uppercase tracking-[0.25em] text-[#0088ff] mb-6" id="logo-text">Nudge</span>
+
+        <!-- Login Title — real h1 treatment: display serif, ultralight, tight leading -->
+        <h1 class="font-display-vivid text-5xl font-light text-white mb-3 tracking-tight leading-[1.05]" id="login-title">Welcome back.</h1>
+
         <!-- Subtext -->
-        <p class="text-sm text-on-surface-variant mb-8 font-medium" id="login-subtext">Enter your email and password to continue.</p>
+        <p class="text-sm text-on-surface-variant mb-10 font-medium" id="login-subtext">Enter your email and password to continue.</p>
 
         <!-- Login form -->
         <form class="w-full flex flex-col gap-4" id="login-form">
             <div class="relative w-full" id="email-field">
-                <input type="email" placeholder="Enter your email" required id="email-input"
-                    class="w-full px-6 py-4 bg-[#0f172a]/90 text-white rounded-full border border-outline/35 focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all outline-none text-center font-medium placeholder-on-surface-variant/40" />
+                <input type="email" placeholder="Enter your email" required id="email-input" class="vivid-input" />
             </div>
             <div class="relative w-full" id="password-field">
-                <input type="password" placeholder="Enter your password" required id="password-input"
-                    class="w-full px-6 py-4 bg-[#0f172a]/90 text-white rounded-full border border-outline/35 focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all outline-none text-center font-medium placeholder-on-surface-variant/40" />
+                <input type="password" placeholder="Enter your password" required id="password-input" class="vivid-input" />
             </div>
-            <div class="grid grid-cols-2 gap-4" id="auth-actions">
-                <button type="button" id="signup-btn"
-                    class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
+            <div class="grid grid-cols-2 gap-4 mt-2" id="auth-actions">
+                <button type="button" id="signup-btn" class="vivid-btn is-neutral w-full">
                     Sign Up
                 </button>
-                <button type="submit" id="login-btn"
-                    class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
+                <button type="submit" id="login-btn" class="vivid-btn is-brand w-full">
                     Login
                 </button>
             </div>
-            <div class="hidden w-full flex flex-col gap-4" id="otp-section">
+            <div class="hidden w-full flex flex-col gap-4 mt-2" id="otp-section">
                 <div class="relative w-full">
-                    <input type="text" inputmode="numeric" maxlength="8" placeholder="Enter OTP" id="otp-input"
-                        class="w-full px-6 py-4 bg-[#0f172a]/90 text-white rounded-full border border-outline/35 focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all outline-none text-center font-medium placeholder-on-surface-variant/40" />
+                    <input type="text" inputmode="numeric" maxlength="8" placeholder="Enter OTP" id="otp-input" class="vivid-input" />
                 </div>
-                <button type="button" id="confirm-otp-btn"
-                    class="w-full py-4 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-[0.98] text-white font-bold rounded-full transition-all shadow-lg shadow-[#3b82f6]/20 flex items-center justify-center">
+                <button type="button" id="confirm-otp-btn" class="vivid-btn is-brand w-full">
                     Confirm
                 </button>
                 <button type="button" id="resend-otp-btn"
-                    class="text-xs text-[#94a3b8]/70 hover:text-white font-bold transition-colors">
+                    class="font-mono-vivid text-[11px] uppercase tracking-widest text-[#94a3b8]/70 hover:text-white transition-colors">
                     Resend OTP
                 </button>
             </div>
@@ -151,15 +114,14 @@
         </form>
 
         <!-- Divider -->
-        <div class="w-full flex items-center gap-4 my-6" id="login-divider">
-            <div class="h-[1px] bg-outline-variant/30 flex-grow"></div>
-            <span class="text-[10px] uppercase tracking-widest text-[#94a3b8]/40 font-extrabold">OR</span>
-            <div class="h-[1px] bg-outline-variant/30 flex-grow"></div>
+        <div class="w-full flex items-center gap-4 my-8" id="login-divider">
+            <div class="h-[1px] bg-white/8 flex-grow"></div>
+            <span class="font-mono-vivid text-[10px] uppercase tracking-widest text-[#94a3b8]/40">OR</span>
+            <div class="h-[1px] bg-white/8 flex-grow"></div>
         </div>
 
-        <!-- Google OAuth Button -->
-        <button id="oauth-g"
-            class="w-full py-4 bg-[#0f172a]/90 hover:bg-white/5 active:scale-[0.98] border border-slate-700/60 text-white font-bold rounded-full transition-all flex items-center justify-center gap-3">
+        <!-- Google OAuth Button — real .is-light variant (inverted: light fill, dark text) -->
+        <button id="oauth-g" class="vivid-btn is-light w-full gap-3">
             <svg class="w-5 h-5" viewBox="0 0 24 24" width="20" height="20">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -171,17 +133,13 @@
 
         <!-- Footer Text -->
         <p class="text-xs text-[#94a3b8]/50 mt-8 font-medium" id="login-footer">No account? We'll create one for you.</p>
-        
+
     </div>
 
     <script>
-        // Smooth entrance animation for the login card using GSAP
+        // Background canvas + entrance animation for the login card
         window.addEventListener('DOMContentLoaded', () => {
-            // Load the background iframe dynamically using location.replace to avoid history pollution
-            const bgIframe = document.getElementById("bg-iframe");
-            if (bgIframe) {
-                bgIframe.contentWindow.location.replace("home.html");
-            }
+            initVividCanvas('vivid-canvas');
 
             gsap.to("#login-transition-layer", {
                 opacity: 0,
@@ -197,16 +155,17 @@
                 ease: "power4.out"
             });
 
-            // Subtle stagger effect for internal card elements
+            // Text reveal for the headline, plain stagger fade for the rest
+            initVividTextReveal("#login-title", { delay: 0.15 });
+
             const cardElements = [
                 "#logo-text",
-                "#login-title",
                 "#login-subtext",
                 "#login-form",
                 "#login-divider",
                 "#login-footer"
             ];
-            
+
             gsap.from(cardElements, {
                 opacity: 0,
                 y: 10,

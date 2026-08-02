@@ -1,0 +1,377 @@
+/* ============================================================
+   Vivid Motion shared theme
+   Design tokens and reusable primitives extracted from the real
+   source in `templates/dream UI` (Vivid Motion Webflow export),
+   used by home.html, login.html, dashboard.html and
+   profilecompletion.html so all four pages read as one system.
+
+   Source tokens (templates/dream UI/css/main.css :root):
+     --_colors---color-neutral-1000 (background): #0a0a0a
+     --_colors---color-white (foreground): #fff
+     --_colors---color-orange-500 (accent, actually blue): #0088ff
+     --_colors---color-orange-600 (accent hover): #0066cc
+     --_typefaces---font-body: "Inter Tight", Arial, sans-serif
+     --_typefaces---font-display: "PP Editorial New" (licensed to Vivid
+       Motion, hotlinked from their CDN in the source — not bundled here.
+       "Fraunces" from Google Fonts stands in as a free equivalent editorial
+       serif with the same optical-size display character).
+     --_typefaces---font-mono: "Oxygen Mono", Tahoma, sans-serif (this one
+       IS free on Google Fonts, used as-is).
+   ============================================================ */
+
+:root {
+  --vivid-bg: #0a0a0a;
+  --vivid-fg: #ffffff;
+  --vivid-fg-muted: #94a3b8;
+  --vivid-accent: #0088ff;
+  --vivid-accent-hover: #0066cc;
+  --vivid-accent-soft: rgba(0, 136, 255, 0.15);
+  --vivid-border: rgba(148, 163, 184, 0.12);
+  --vivid-glass-bg: rgba(15, 23, 42, 0.6);
+}
+
+.vivid-body {
+  background-color: var(--vivid-bg);
+  color: var(--vivid-fg);
+  font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display-vivid {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+}
+
+.font-mono-vivid {
+  font-family: 'Oxygen Mono', Tahoma, sans-serif;
+}
+
+/* =============================================
+   Shared section divider — thin architectural
+   border between stacked sections
+   ============================================= */
+.shared-section {
+  position: relative;
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
+}
+
+.shared-section::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.12), transparent);
+}
+
+.shared-section:first-of-type {
+  border-top: none;
+}
+
+.shared-section:first-of-type::after {
+  display: none;
+}
+
+/* =============================================
+   Transparent navbar — floats above content,
+   gains a blurred background once scrolled
+   ============================================= */
+.navbar-vivid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: auto;
+}
+
+.navbar-vivid.is-scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(148, 163, 184, 0.06);
+}
+
+.navbar-vivid-brand {
+  font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--vivid-fg-muted);
+  text-decoration: none;
+}
+
+.navbar-vivid-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-vivid-links a {
+  font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.6);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-vivid-links a:hover {
+  color: var(--vivid-fg);
+}
+
+.navbar-vivid-cta {
+  font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vivid-fg);
+  background: var(--vivid-accent-soft);
+  border: 1px solid rgba(0, 136, 255, 0.3);
+  padding: 8px 20px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-vivid-cta:hover {
+  background: rgba(0, 136, 255, 0.28);
+  border-color: rgba(0, 136, 255, 0.5);
+}
+
+/* =============================================
+   Fullscreen WebGL grain canvas — sits behind
+   all page content, initialized via
+   assets/vivid/js/motion.js -> initVividCanvas()
+   ============================================= */
+.vivid-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* =============================================
+   Glass card
+   ============================================= */
+.glass-card {
+  background: var(--vivid-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--vivid-border);
+}
+
+/* =============================================
+   Ambient glow orb — soft drifting blur used
+   behind hero/card content on every page
+   ============================================= */
+.vivid-ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  opacity: 0.16;
+  animation: vivid-ambient-drift 18s ease-in-out infinite alternate;
+}
+
+.vivid-ambient-orb-left {
+  width: 22rem;
+  height: 22rem;
+  left: -15rem;
+  top: 42%;
+  background: var(--vivid-accent-hover);
+}
+
+.vivid-ambient-orb-right {
+  width: 26rem;
+  height: 26rem;
+  right: -18rem;
+  top: 28%;
+  background: var(--vivid-accent);
+  animation-delay: -8s;
+}
+
+@keyframes vivid-ambient-drift {
+  from {
+    transform: translate3d(0, -12px, 0) scale(0.95);
+  }
+
+  to {
+    transform: translate3d(28px, 20px, 0) scale(1.08);
+  }
+}
+
+@keyframes vivid-glow-orb {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.15);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-vivid-glow-orb {
+  animation: vivid-glow-orb 15s ease-in-out infinite;
+}
+
+/* =============================================
+   Page transition overlay — used by GSAP page
+   transitions on navigation between templates
+   ============================================= */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: rgba(2, 6, 23, 0);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+}
+
+/* =============================================
+   Real button system, ported directly from
+   templates/dream UI/css/main.css `.btn` / `.is-*`
+   (fully-pill mono-uppercase buttons; the source's
+   only rounded shape — everything else is sharp)
+   ============================================= */
+.vivid-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 256px;
+  font-family: 'Oxygen Mono', Tahoma, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0 32px;
+  height: 64px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+}
+
+.vivid-btn.is-md {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 12px;
+}
+
+.vivid-btn.is-brand {
+  background-color: var(--vivid-accent);
+  color: #ffffff;
+}
+
+.vivid-btn.is-brand:hover {
+  background-color: var(--vivid-accent-hover);
+}
+
+.vivid-btn.is-light {
+  background-color: var(--vivid-fg);
+  color: var(--vivid-bg);
+}
+
+.vivid-btn.is-light:hover {
+  background-color: #ececec;
+}
+
+.vivid-btn.is-neutral {
+  background-color: #282828;
+  color: #b1b1b1;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.vivid-btn.is-neutral:hover {
+  background-color: #191919;
+  color: #d8d8d8;
+}
+
+.vivid-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =============================================
+   Real card, ported directly from
+   templates/dream UI/css/main.css `.values-grid-card`
+   (small 8px radius, near-black fill, thin hairline
+   border — no glassmorphism/blur in the source)
+   ============================================= */
+.vivid-card {
+  border-radius: 8px;
+  background-color: #191919;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* =============================================
+   Real input treatment (the source has no login
+   form to copy, so this follows the same sharp
+   8px-radius / near-black-fill language as
+   .vivid-card rather than the old pill inputs)
+   ============================================= */
+.vivid-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 20px;
+  background-color: #141414;
+  color: var(--vivid-fg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  outline: none;
+  transition: border-color .15s ease;
+}
+
+.vivid-input::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+.vivid-input:focus {
+  border-color: var(--vivid-accent);
+}
+
+/* =============================================
+   Scroll-reveal primitive, driven by
+   assets/vivid/js/motion.js -> initVividReveal()
+   ============================================= */
+[data-reveal] {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  [data-reveal],
+  .vivid-ambient-orb,
+  .animate-vivid-glow-orb {
+    visibility: visible !important;
+    animation: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+}
