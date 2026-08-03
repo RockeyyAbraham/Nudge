@@ -313,11 +313,30 @@ def me():
         if not user:
             return _json_error("Invalid session token", 401)
 
+        user_id = _value(user, "id")
+
+        service_client = _service_supabase()
+        client_to_use = service_client if service_client else supabase
+        profile_response = (
+            client_to_use.table("profiles")
+            .select("full_name, university, semester, profile_completed")
+            .eq("id", user_id)
+            .execute()
+        )
+        profile_data = getattr(profile_response, "data", None) or []
+        profile = profile_data[0] if profile_data else {}
+
         return jsonify({
             "status": "success",
             "user": {
-                "id": _value(user, "id"),
+                "id": user_id,
                 "email": _value(user, "email"),
+            },
+            "profile": {
+                "full_name": profile.get("full_name"),
+                "university": profile.get("university"),
+                "semester": profile.get("semester"),
+                "profile_completed": bool(profile.get("profile_completed", False)),
             },
         }), 200
     except Exception as error:

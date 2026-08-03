@@ -67,6 +67,10 @@ app.register_blueprint(auth_bp, url_prefix='/api/auth')
 def home():
     return render_template('index.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 # Catch-all route to serve static files from templates folder
 @app.route('/<path:path>')
 def serve_static(path):
