@@ -112,7 +112,7 @@
     <!-- Greeting -->
     <div class="mb-10" id="dash-greeting">
         <p class="font-mono-vivid text-xs uppercase tracking-[0.25em] text-[#0088ff] mb-3">Welcome back</p>
-        <h1 class="font-display-vivid text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.05]">Hey, Aiswarya.</h1>
+        <h1 class="font-display-vivid text-4xl md:text-5xl font-light text-white tracking-tight leading-[1.05]">Hey, <span id="dash-user-name">there</span>.</h1>
         <p class="text-on-surface-variant mt-2" id="dash-greeting-sub">Here's where things stand today.</p>
     </div>
 
@@ -206,6 +206,38 @@
 
 <script>
     initVividCanvas('vivid-canvas');
+
+    // Guard: require a session, require a completed profile, hydrate the greeting name
+    const API_BASE = "http://localhost:5000/api/auth";
+    const sessionToken = localStorage.getItem("nudge_session_token");
+
+    if (!sessionToken) {
+        window.location.href = "login.html";
+    } else {
+        fetch(`${API_BASE}/me`, {
+            headers: { "Authorization": `Bearer ${sessionToken}` }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (!data || data.status !== "success") {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                if (!data.profile || !data.profile.profile_completed) {
+                    window.location.href = "profilecompletion.html";
+                    return;
+                }
+
+                const nameEl = document.getElementById("dash-user-name");
+                if (nameEl && data.profile.full_name) {
+                    nameEl.textContent = data.profile.full_name.split(" ")[0];
+                }
+            })
+            .catch(() => {
+                window.location.href = "login.html";
+            });
+    }
 
     // Dynamic time-based greeting subtext
     const greetingSub = document.getElementById('dash-greeting-sub');

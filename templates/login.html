@@ -22,8 +22,8 @@
                         "on-primary-container": "#f1f5f9",
                         "secondary": "#cbd5e1",
                         "secondary-container": "#1e293b",
-                        "background": "#0a0a0a",
-                        "surface": "#0a0a0a",
+                        "background": "#0a0f1e",
+                        "surface": "#0a0f1e",
                         "surface-container": "#141414",
                         "surface-container-high": "#1e293b",
                         "surface-container-highest": "#334155",
@@ -51,7 +51,7 @@
     </script>
     <style>
         body {
-            background-color: #0a0a0a;
+            background-color: #0a0f1e;
             color: #f8fafc;
             -webkit-font-smoothing: antialiased;
             font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
@@ -67,20 +67,22 @@
 
     <!-- Fullscreen grain-gradient background, shared with the rest of the app -->
     <canvas class="vivid-canvas" id="vivid-canvas"></canvas>
-    <div class="absolute inset-0 z-[1] bg-[#0a0a0a]" id="login-transition-layer" aria-hidden="true"></div>
+    <div class="vivid-ambient-orb vivid-ambient-orb-left z-0" aria-hidden="true"></div>
+    <div class="vivid-ambient-orb vivid-ambient-orb-right z-0" aria-hidden="true"></div>
+    <div class="absolute inset-0 z-[1] bg-[#0a0f1e]" id="login-transition-layer" aria-hidden="true"></div>
 
-    <!-- Centered Login Card — real dream UI card treatment (.values-grid-card:
-         8px radius, near-black fill, hairline border, no blur/glassmorphism) -->
-    <div class="vivid-card relative z-10 w-full max-w-[440px] px-8 py-12 md:p-12 text-center flex flex-col items-center mx-4 opacity-0 translate-y-4" id="login-card">
+    <!-- Centered Login Card — frosted glassmorphism, lets the page
+         background (shared with index.html) show through, blurred -->
+    <div class="glass-card relative z-10 w-full max-w-[380px] px-7 py-8 text-center flex flex-col items-center mx-4 opacity-0 translate-y-4 scale-95" id="login-card">
 
         <!-- Small blue Nudge text logo — real mono-uppercase label treatment -->
-        <span class="font-mono-vivid text-xs uppercase tracking-[0.25em] text-[#0088ff] mb-6" id="logo-text">Nudge</span>
+        <span class="font-mono-vivid text-xs uppercase tracking-[0.25em] text-[#0088ff] mb-4" id="logo-text">Nudge</span>
 
         <!-- Login Title — real h1 treatment: display serif, ultralight, tight leading -->
-        <h1 class="font-display-vivid text-5xl font-light text-white mb-3 tracking-tight leading-[1.05]" id="login-title">Welcome back.</h1>
+        <h1 class="font-display-vivid text-4xl font-light text-white mb-2 tracking-tight leading-[1.05]" id="login-title">Welcome back.</h1>
 
         <!-- Subtext -->
-        <p class="text-sm text-on-surface-variant mb-10 font-medium" id="login-subtext">Enter your email and password to continue.</p>
+        <p class="text-sm text-on-surface-variant mb-6 font-medium" id="login-subtext">Enter your email and password to continue.</p>
 
         <!-- Login form -->
         <form class="w-full flex flex-col gap-4" id="login-form">
@@ -114,7 +116,7 @@
         </form>
 
         <!-- Divider -->
-        <div class="w-full flex items-center gap-4 my-8" id="login-divider">
+        <div class="w-full flex items-center gap-4 my-5" id="login-divider">
             <div class="h-[1px] bg-white/8 flex-grow"></div>
             <span class="font-mono-vivid text-[10px] uppercase tracking-widest text-[#94a3b8]/40">OR</span>
             <div class="h-[1px] bg-white/8 flex-grow"></div>
@@ -132,7 +134,7 @@
         </button>
 
         <!-- Footer Text -->
-        <p class="text-xs text-[#94a3b8]/50 mt-8 font-medium" id="login-footer">No account? We'll create one for you.</p>
+        <p class="text-xs text-[#94a3b8]/50 mt-5 font-medium" id="login-footer">No account? We'll create one for you.</p>
 
     </div>
 
@@ -147,10 +149,11 @@
                 ease: "power2.out"
             });
 
-            // Animate card container fade-in and slide-up
+            // Animate card container fade-in, slide-up, and grow into view
             gsap.to("#login-card", {
                 opacity: 1,
                 y: 0,
+                scale: 1,
                 duration: 1,
                 ease: "power4.out"
             });
