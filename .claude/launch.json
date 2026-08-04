@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nudge-flask",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["backend/nudge.py"],
+      "port": 5000
+    }
+  ]
+}

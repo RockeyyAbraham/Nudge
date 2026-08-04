@@ -86,11 +86,13 @@
     <p class="text-sm text-on-surface-variant mb-10 font-medium text-center" id="profile-subtext">A few details before we build your first study plan.</p>
 
     <form class="w-full flex flex-col gap-4" id="profile-form">
-        <div class="relative w-full">
-            <input type="text" placeholder="Your full name" required id="full-name-input" class="vivid-input" />
+        <div class="vivid-field">
+            <input type="text" placeholder=" " required id="full-name-input" class="vivid-input has-float-label" />
+            <label for="full-name-input" class="vivid-field-label">Your full name</label>
         </div>
-        <div class="relative w-full">
-            <input type="text" placeholder="Your university" required id="university-input" class="vivid-input" />
+        <div class="vivid-field">
+            <input type="text" placeholder=" " required id="university-input" class="vivid-input has-float-label" />
+            <label for="university-input" class="vivid-field-label">Your university</label>
         </div>
         <div class="relative w-full">
             <select id="semester-input" class="vivid-input" required>
