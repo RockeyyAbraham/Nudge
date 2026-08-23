@@ -50,6 +50,29 @@ def _json_error(message, status_code):
     return jsonify({"status": "error", "message": message}), status_code
 
 
+def _safe_error_message(error):
+    """Map unexpected/internal errors (DNS failures, timeouts, connection
+    drops talking to Supabase) to a friendly message instead of leaking the
+    raw exception text (e.g. "[Errno 11001] getaddrinfo failed") to the UI."""
+    error_text = str(error).lower()
+    network_markers = (
+        "getaddrinfo failed",
+        "errno 11001",
+        "name or service not known",
+        "connection refused",
+        "connectionerror",
+        "timed out",
+        "timeout",
+        "max retries exceeded",
+        "network is unreachable",
+    )
+    if any(marker in error_text for marker in network_markers):
+        print(f"ERROR: network failure talking to Supabase: {error}")
+        return "Couldn't reach the server. Check your internet connection and try again."
+
+    return str(error)
+
+
 def _require_supabase():
     if not supabase:
         return _json_error("Supabase is not configured", 500)
@@ -147,7 +170,7 @@ def signup():
                 return _json_error("Account already exists, please login", 409)
             raise auth_error
     except Exception as error:
-        return _json_error(str(error), 400)
+        return _json_error(_safe_error_message(error), 400)
 
 
 @auth_bp.route('/verify-otp', methods=['POST'])
@@ -201,7 +224,7 @@ def verify_otp():
         error_message = str(error).lower()
         if "duplicate" in error_message or "already exists" in error_message or "23505" in error_message:
             return _json_error("Profile already exists", 409)
-        return _json_error(str(error), 400)
+        return _json_error(_safe_error_message(error), 400)
 
 
 @auth_bp.route('/login', methods=['POST'])
@@ -273,7 +296,7 @@ def login():
             "user_id": user_id,
         }), 200
     except Exception as error:
-        return _json_error(str(error), 400)
+        return _json_error(_safe_error_message(error), 400)
 
 
 @auth_bp.route('/logout', methods=['POST'])
@@ -289,7 +312,7 @@ def logout():
             "message": "Logged out successfully",
         }), 200
     except Exception as error:
-        return _json_error(str(error), 400)
+        return _json_error(_safe_error_message(error), 400)
 
 
 @auth_bp.route('/me', methods=['GET'])
@@ -393,4 +416,4 @@ def complete_profile():
             "message": "Profile completed successfully"
         }), 200
     except Exception as error:
-        return _json_error(str(error), 400)
+        return _json_error(_safe_error_message(error), 400)

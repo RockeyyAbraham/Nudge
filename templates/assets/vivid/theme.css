@@ -379,6 +379,22 @@
   color: transparent;
 }
 
+/* Chrome/Edge paint autofilled fields with their own internal background
+   layer (usually white/light-blue) that ignores background-color, even
+   with !important. The only reliable override is an inset box-shadow the
+   size of the field, paired with re-asserting -webkit-text-fill-color —
+   otherwise autofilled email/password text renders white-on-white. */
+.vivid-input:-webkit-autofill,
+.vivid-input:-webkit-autofill:hover,
+.vivid-input:-webkit-autofill:focus,
+.vivid-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #141414 inset !important;
+  box-shadow: 0 0 0 1000px #141414 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: var(--vivid-accent);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .vivid-input:focus {
   border-color: var(--vivid-accent) !important;
   box-shadow: 0 0 0 3px var(--vivid-accent-soft);
