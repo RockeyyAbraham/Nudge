@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Nudge | Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter+Tight:wght@300;400;500;600;700;800&amp;family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&amp;family=Oxygen+Mono&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+<link href="assets/vivid/theme.css" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "primary": "#94a3b8",
+                    "on-primary": "#0a0a0a",
+                    "primary-container": "#334155",
+                    "on-primary-container": "#f1f5f9",
+                    "secondary": "#cbd5e1",
+                    "secondary-container": "#1e293b",
+                    "background": "#0a0a0a",
+                    "surface": "#0a0a0a",
+                    "surface-container": "#141414",
+                    "surface-container-high": "#1e293b",
+                    "surface-container-highest": "#334155",
+                    "on-background": "#f8fafc",
+                    "on-surface": "#f8fafc",
+                    "on-surface-variant": "#94a3b8",
+                    "outline": "#475569",
+                    "outline-variant": "#1e293b",
+                    "error": "#fca5a5"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+                "fontFamily": {
+                    "display": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                    "body-lg": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"],
+                    "body-md": ["Inter Tight", "Plus Jakarta Sans", "sans-serif"]
+                }
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        background-color: #0a0a0a;
+        color: #f8fafc;
+        -webkit-font-smoothing: antialiased;
+        font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+
+    select.vivid-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+    }
+
+    .vivid-input:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+</style>
+<!-- GSAP + shared Vivid Motion helpers (self-hosted copies of the Vivid Motion source libraries) -->
+<script src="assets/vivid/js/gsap.min.js"></script>
+<script src="assets/vivid/js/motion.js"></script>
+</head>
+
+<body class="font-body-md text-body-md overflow-x-hidden relative min-h-screen">
+
+<!-- Fullscreen grain-gradient background, shared with the rest of the app -->
+<canvas class="vivid-canvas" id="vivid-canvas"></canvas>
+<div class="vivid-ambient-orb vivid-ambient-orb-left z-0" aria-hidden="true"></div>
+<div class="vivid-ambient-orb vivid-ambient-orb-right z-0" aria-hidden="true"></div>
+
+<!-- Top navbar — same shell as the dashboard -->
+<header class="navbar-vivid is-scrolled" id="profile-navbar">
+    <a class="navbar-vivid-brand" href="dashboard.html">Nudge</a>
+    <nav class="navbar-vivid-links hidden md:flex">
+        <a href="dashboard.html">Planner</a>
+        <a href="#">Coach</a>
+        <a href="#">Quiz</a>
+        <a href="#">Learn</a>
+        <a href="#">Progress</a>
+    </nav>
+    <div class="flex items-center gap-4">
+        <a href="dashboard.html" class="font-mono-vivid text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-white transition-colors">Back to dashboard</a>
+        <div class="h-8 w-8 rounded-full flex items-center justify-center font-display-vivid text-sm font-semibold" id="nav-avatar" style="background: var(--vivid-accent-soft); color: var(--vivid-accent); border: 1px solid rgba(0,136,255,0.3);">·</div>
+    </div>
+</header>
+
+<main class="relative z-10 max-w-3xl mx-auto px-6 md:px-10 pt-28 pb-24" id="profile-main">
+
+    <!-- Identity header -->
+    <div class="flex items-center gap-5 mb-12" id="profile-identity">
+        <div class="h-16 w-16 rounded-full flex items-center justify-center font-display-vivid text-2xl font-semibold flex-shrink-0" id="profile-avatar" style="background: var(--vivid-accent-soft); color: var(--vivid-accent); border: 1px solid rgba(0,136,255,0.3);">·</div>
+        <div>
+            <h1 class="font-display-vivid text-3xl font-light text-white tracking-tight leading-[1.05]" id="profile-name">Your profile</h1>
+            <p class="text-sm text-on-surface-variant mt-1" id="profile-email">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Editable details -->
+    <section class="vivid-card p-8 mb-6">
+        <p class="font-mono-vivid text-[11px] uppercase tracking-widest text-on-surface-variant mb-6">Profile details</p>
+        <form class="flex flex-col gap-4" id="profile-form">
+            <div class="vivid-field">
+                <input type="text" placeholder=" " required id="full-name-input" class="vivid-input has-float-label" />
+                <label for="full-name-input" class="vivid-field-label">Your full name</label>
+            </div>
+            <div class="vivid-field">
+                <input type="text" placeholder=" " required id="university-input" class="vivid-input has-float-label" />
+                <label for="university-input" class="vivid-field-label">Your university</label>
+            </div>
+            <div class="relative w-full">
+                <select id="semester-input" class="vivid-input" required>
+                    <option value="" selected disabled>Select your semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <div class="vivid-field">
+                <input type="email" placeholder=" " disabled id="email-input" class="vivid-input has-float-label" />
+                <label for="email-input" class="vivid-field-label">Email address</label>
+            </div>
+
+            <p class="hidden text-sm text-error font-semibold" id="profile-error"></p>
+            <p class="hidden text-sm font-semibold" id="profile-success" style="color: var(--vivid-accent);"></p>
+
+            <button type="submit" id="save-profile-btn" class="vivid-btn is-brand is-md mt-2 self-start">
+                Save changes
+            </button>
+        </form>
+    </section>
+
+    <!-- Password change -->
+    <section class="vivid-card p-8 mb-6">
+        <p class="font-mono-vivid text-[11px] uppercase tracking-widest text-on-surface-variant mb-6">Change password</p>
+        <form class="flex flex-col gap-4" id="password-form">
+            <div class="vivid-field">
+                <input type="password" placeholder=" " required id="current-password-input" class="vivid-input has-float-label" autocomplete="current-password" />
+                <label for="current-password-input" class="vivid-field-label">Current password</label>
+            </div>
+            <div class="vivid-field">
+                <input type="password" placeholder=" " required id="new-password-input" class="vivid-input has-float-label" autocomplete="new-password" />
+                <label for="new-password-input" class="vivid-field-label">New password</label>
+            </div>
+            <div class="vivid-field">
+                <input type="password" placeholder=" " required id="confirm-password-input" class="vivid-input has-float-label" autocomplete="new-password" />
+                <label for="confirm-password-input" class="vivid-field-label">Confirm new password</label>
+            </div>
+
+            <p class="hidden text-sm text-error font-semibold" id="password-error"></p>
+            <p class="hidden text-sm font-semibold" id="password-success" style="color: var(--vivid-accent);"></p>
+
+            <button type="submit" id="save-password-btn" class="vivid-btn is-neutral is-md mt-2 self-start">
+                Update password
+            </button>
+        </form>
+    </section>
+
+    <!-- Sign out -->
+    <section class="vivid-card p-8 flex items-center justify-between gap-4">
+        <div>
+            <p class="text-white font-medium">Sign out</p>
+            <p class="text-xs text-on-surface-variant mt-1">End your session on this device.</p>
+        </div>
+        <button type="button" id="logout-btn" class="vivid-btn is-neutral is-md">
+            Log out
+        </button>
+    </section>
+
+</main>
+
+<script>
+    initVividCanvas('vivid-canvas');
+
+    const API_BASE = "http://localhost:5000/api/auth";
+    const sessionToken = localStorage.getItem("nudge_session_token");
+
+    if (!sessionToken) {
+        window.location.href = "login.html";
+    }
+
+    const fullNameInput = document.getElementById("full-name-input");
+    const universityInput = document.getElementById("university-input");
+    const semesterInput = document.getElementById("semester-input");
+    const emailInput = document.getElementById("email-input");
+    const profileNameEl = document.getElementById("profile-name");
+    const profileEmailEl = document.getElementById("profile-email");
+    const navAvatarEl = document.getElementById("nav-avatar");
+    const profileAvatarEl = document.getElementById("profile-avatar");
+
+    const setAvatarInitial = (fullName, email) => {
+        const source = (fullName || email || "?").trim();
+        const initial = source.charAt(0).toUpperCase();
+        if (navAvatarEl) navAvatarEl.textContent = initial;
+        if (profileAvatarEl) profileAvatarEl.textContent = initial;
+    };
+
+    const loadProfile = async () => {
+        try {
+            const response = await fetch(`${API_BASE}/me`, {
+                headers: { "Authorization": `Bearer ${sessionToken}` }
+            });
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok || !data || data.status !== "success") {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const { user, profile } = data;
+
+            fullNameInput.value = profile.full_name || "";
+            universityInput.value = profile.university || "";
+            semesterInput.value = profile.semester ? String(profile.semester) : "";
+            emailInput.value = user.email || "";
+
+            profileNameEl.textContent = profile.full_name || "Your profile";
+            profileEmailEl.textContent = user.email || "";
+
+            setAvatarInitial(profile.full_name, user.email);
+        } catch (error) {
+            window.location.href = "login.html";
+        }
+    };
+
+    if (sessionToken) {
+        loadProfile();
+    }
+
+    // Profile details form
+    const profileForm = document.getElementById("profile-form");
+    const profileError = document.getElementById("profile-error");
+    const profileSuccess = document.getElementById("profile-success");
+    const saveProfileBtn = document.getElementById("save-profile-btn");
+
+    const showMessage = (el, message) => {
+        el.textContent = message;
+        el.classList.remove("hidden");
+    };
+
+    const clearMessages = (...els) => {
+        els.forEach((el) => {
+            el.textContent = "";
+            el.classList.add("hidden");
+        });
+    };
+
+    const setLoading = (button, isLoading, loadingText) => {
+        if (isLoading) {
+            button.dataset.defaultText = button.dataset.defaultText || button.textContent.trim();
+            button.textContent = loadingText;
+            button.disabled = true;
+            button.classList.add("opacity-70", "cursor-not-allowed");
+            return;
+        }
+
+        button.textContent = button.dataset.defaultText || button.textContent;
+        button.disabled = false;
+        button.classList.remove("opacity-70", "cursor-not-allowed");
+    };
+
+    [fullNameInput, universityInput, semesterInput].forEach((input) => {
+        input.addEventListener("input", () => clearMessages(profileError, profileSuccess));
+        input.addEventListener("change", () => clearMessages(profileError, profileSuccess));
+    });
+
+    profileForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        clearMessages(profileError, profileSuccess);
+
+        const fullName = fullNameInput.value.trim();
+        const university = universityInput.value.trim();
+        const semesterRaw = semesterInput.value;
+        const semester = semesterRaw ? parseInt(semesterRaw, 10) : null;
+
+        if (!fullName || !university || !semesterRaw) {
+            showMessage(profileError, "Fill in your name, university and semester to continue.");
+            return;
+        }
+
+        setLoading(saveProfileBtn, true, "Saving...");
+        try {
+            const response = await fetch(`${API_BASE}/update-profile`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionToken}`
+                },
+                body: JSON.stringify({ full_name: fullName, university, semester })
+            });
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(data.message || "Failed to update profile");
+            }
+
+            profileNameEl.textContent = fullName;
+            setAvatarInitial(fullName, emailInput.value);
+            showMessage(profileSuccess, "Profile updated.");
+        } catch (error) {
+            showMessage(profileError, error.message);
+        } finally {
+            setLoading(saveProfileBtn, false);
+        }
+    });
+
+    // Password change form
+    const passwordForm = document.getElementById("password-form");
+    const currentPasswordInput = document.getElementById("current-password-input");
+    const newPasswordInput = document.getElementById("new-password-input");
+    const confirmPasswordInput = document.getElementById("confirm-password-input");
+    const passwordError = document.getElementById("password-error");
+    const passwordSuccess = document.getElementById("password-success");
+    const savePasswordBtn = document.getElementById("save-password-btn");
+
+    [currentPasswordInput, newPasswordInput, confirmPasswordInput].forEach((input) => {
+        input.addEventListener("input", () => clearMessages(passwordError, passwordSuccess));
+    });
+
+    passwordForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        clearMessages(passwordError, passwordSuccess);
+
+        const currentPassword = currentPasswordInput.value;
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            showMessage(passwordError, "Fill in all three password fields.");
+            return;
+        }
+
+        if (newPassword.length < 6) {
+            showMessage(passwordError, "New password must be at least 6 characters.");
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            showMessage(passwordError, "New passwords don't match.");
+            return;
+        }
+
+        setLoading(savePasswordBtn, true, "Updating...");
+        try {
+            const response = await fetch(`${API_BASE}/change-password`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionToken}`
+                },
+                body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
+            });
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(data.message || "Failed to update password");
+            }
+
+            passwordForm.reset();
+            showMessage(passwordSuccess, "Password updated.");
+        } catch (error) {
+            showMessage(passwordError, error.message);
+        } finally {
+            setLoading(savePasswordBtn, false);
+        }
+    });
+
+    // Sign out
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+        try {
+            await fetch(`${API_BASE}/logout`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${sessionToken}` }
+            });
+        } catch (error) {
+            // Ignore network errors on logout — clear the local session regardless
+        } finally {
+            localStorage.removeItem("nudge_session_token");
+            localStorage.removeItem("nudge_user_id");
+            window.location.href = "login.html";
+        }
+    });
+
+    // Gentle entrance animation, matching the rest of the app
+    if (typeof gsap !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.from('#profile-identity, #profile-main .vivid-card', {
+            opacity: 0,
+            y: 14,
+            duration: 0.7,
+            stagger: 0.08,
+            ease: 'power2.out'
+        });
+    }
+</script>
+</body>
+
+</html>

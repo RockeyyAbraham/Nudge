@@ -354,6 +354,7 @@ def me():
             "user": {
                 "id": user_id,
                 "email": _value(user, "email"),
+                "created_at": _value(user, "created_at"),
             },
             "profile": {
                 "full_name": profile.get("full_name"),
@@ -364,6 +365,123 @@ def me():
         }), 200
     except Exception as error:
         return _json_error(f"Unauthorized: {str(error)}", 401)
+
+
+def _get_user_from_bearer(request):
+    """Resolve the caller's Supabase user from the Authorization header.
+
+    Returns (user, error_response). On failure, `user` is None and
+    `error_response` is a ready-to-return Flask response.
+    """
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        return None, _json_error("Missing Authorization header", 401)
+
+    token = auth_header.removeprefix("Bearer ").strip()
+    if not token:
+        return None, _json_error("Missing session token", 401)
+
+    response = supabase.auth.get_user(token)
+    user = getattr(response, "user", None)
+
+    if not user:
+        return None, _json_error("Invalid session token", 401)
+
+    return user, None
+
+
+@auth_bp.route('/update-profile', methods=['POST'])
+def update_profile():
+    try:
+        config_error = _require_supabase()
+        if config_error:
+            return config_error
+
+        user, error_response = _get_user_from_bearer(request)
+        if error_response:
+            return error_response
+
+        user_id = _value(user, "id")
+
+        data = request.get_json() or {}
+        full_name = (data.get("full_name") or "").strip()
+        university = (data.get("university") or "").strip()
+
+        semester_val = data.get("semester")
+        try:
+            semester = int(semester_val) if semester_val is not None else None
+        except ValueError:
+            semester = None
+
+        if not full_name or not university or semester is None:
+            return _json_error("Name, university and semester are required", 400)
+
+        service_client = _service_supabase()
+        client_to_use = service_client if service_client else supabase
+
+        client_to_use.table("profiles").update({
+            "full_name": full_name,
+            "university": university,
+            "semester": semester,
+        }).eq("id", user_id).execute()
+
+        return jsonify({
+            "status": "success",
+            "message": "Profile updated successfully",
+            "profile": {
+                "full_name": full_name,
+                "university": university,
+                "semester": semester,
+            },
+        }), 200
+    except Exception as error:
+        return _json_error(_safe_error_message(error), 400)
+
+
+@auth_bp.route('/change-password', methods=['POST'])
+def change_password():
+    try:
+        config_error = _require_supabase()
+        if config_error:
+            return config_error
+
+        user, error_response = _get_user_from_bearer(request)
+        if error_response:
+            return error_response
+
+        email = _value(user, "email")
+
+        data = request.get_json() or {}
+        current_password = data.get("current_password")
+        new_password = data.get("new_password")
+
+        if not current_password or not new_password:
+            return _json_error("Current and new password are required", 400)
+
+        if len(new_password) < 6:
+            return _json_error("New password must be at least 6 characters", 400)
+
+        try:
+            supabase.auth.sign_in_with_password({
+                "email": email,
+                "password": current_password,
+            })
+        except Exception:
+            return _json_error("Current password is incorrect", 401)
+
+        service_client = _service_supabase()
+        if not service_client:
+            return _json_error("Password changes are temporarily unavailable", 500)
+
+        user_id = _value(user, "id")
+        service_client.auth.admin.update_user_by_id(user_id, {"password": new_password})
+
+        return jsonify({
+            "status": "success",
+            "message": "Password updated successfully",
+        }), 200
+    except Exception as error:
+        return _json_error(_safe_error_message(error), 400)
 
 
 @auth_bp.route('/complete-profile', methods=['POST'])

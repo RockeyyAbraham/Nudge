@@ -103,7 +103,7 @@
     </nav>
     <div class="flex items-center gap-4">
         <button class="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors" aria-label="Notifications">notifications</button>
-        <div class="h-8 w-8 rounded-full flex items-center justify-center font-display-vivid text-sm font-semibold" style="background: var(--vivid-accent-soft); color: var(--vivid-accent); border: 1px solid rgba(0,136,255,0.3);">A</div>
+        <a href="profile.html" id="dash-avatar" aria-label="Your profile" class="h-8 w-8 rounded-full flex items-center justify-center font-display-vivid text-sm font-semibold hover:brightness-125 transition-[filter]" style="background: var(--vivid-accent-soft); color: var(--vivid-accent); border: 1px solid rgba(0,136,255,0.3);">A</a>
     </div>
 </header>
 
@@ -232,6 +232,12 @@
                 const nameEl = document.getElementById("dash-user-name");
                 if (nameEl && data.profile.full_name) {
                     nameEl.textContent = data.profile.full_name.split(" ")[0];
+                }
+
+                const avatarEl = document.getElementById("dash-avatar");
+                if (avatarEl) {
+                    const initialSource = (data.profile.full_name || data.user.email || "?").trim();
+                    avatarEl.textContent = initialSource.charAt(0).toUpperCase();
                 }
             })
             .catch(() => {

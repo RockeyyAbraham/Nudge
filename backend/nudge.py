@@ -71,6 +71,10 @@ def home():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
 # Catch-all route to serve static files from templates folder
 @app.route('/<path:path>')
 def serve_static(path):
