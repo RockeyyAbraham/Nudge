@@ -261,6 +261,67 @@
                 window.location.href = "profilecompletion.html";
             };
 
+            // ---- Google OAuth --------------------------------------------------
+            const hideAuthFormForOAuth = () => {
+                [emailField, passwordField, authActions, loginDivider, googleButton].forEach((el) => el.classList.add("hidden"));
+            };
+
+            const restoreAuthFormAfterOAuthError = () => {
+                [emailField, passwordField, authActions, loginDivider, googleButton].forEach((el) => el.classList.remove("hidden"));
+                loginSubtext.textContent = "Enter your email and password to continue.";
+            };
+
+            // Supabase redirects back here with tokens in the URL hash
+            // (#access_token=...), never a query string — handle that
+            // before anything else renders the normal login form state.
+            const handleOAuthRedirect = async () => {
+                if (!window.location.hash.includes("access_token") && !window.location.hash.includes("error")) {
+                    return;
+                }
+
+                const params = new URLSearchParams(window.location.hash.slice(1));
+                const accessToken = params.get("access_token");
+                const oauthError = params.get("error_description") || params.get("error");
+
+                history.replaceState(null, "", window.location.pathname + window.location.search);
+
+                if (oauthError) {
+                    showError(oauthError.replace(/\+/g, " "));
+                    return;
+                }
+
+                if (!accessToken) return;
+
+                hideAuthFormForOAuth();
+                loginSubtext.textContent = "Signing you in with Google…";
+
+                try {
+                    const meResponse = await fetch(`${API_BASE}/me`, {
+                        headers: { "Authorization": `Bearer ${accessToken}` }
+                    });
+                    const meData = await meResponse.json().catch(() => ({}));
+
+                    if (!meResponse.ok || meData.status !== "success") {
+                        throw new Error(meData.message || "Google sign-in failed");
+                    }
+
+                    localStorage.setItem("nudge_session_token", accessToken);
+                    localStorage.setItem("nudge_user_id", meData.user.id);
+
+                    redirectFromAuth(meData.profile.profile_completed ? "dashboard" : "profilecompletion");
+                } catch (error) {
+                    showError(error.message);
+                    restoreAuthFormAfterOAuthError();
+                }
+            };
+
+            googleButton.addEventListener("click", () => {
+                const redirectTo = `${window.location.origin}/login.html`;
+                window.location.href = `${API_BASE}/google-login?redirect_to=${encodeURIComponent(redirectTo)}`;
+            });
+
+            handleOAuthRedirect();
+
             const showOtpState = (email) => {
                 pendingEmail = email;
                 emailField.classList.add("hidden");

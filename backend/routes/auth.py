@@ -1,7 +1,8 @@
 import os
+from urllib.parse import quote
 
 from dotenv import load_dotenv
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, redirect, request
 from supabase import Client, create_client
 
 env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
@@ -225,6 +226,26 @@ def verify_otp():
         if "duplicate" in error_message or "already exists" in error_message or "23505" in error_message:
             return _json_error("Profile already exists", 409)
         return _json_error(_safe_error_message(error), 400)
+
+
+@auth_bp.route('/google-login', methods=['GET'])
+def google_login():
+    config_error = _require_supabase()
+    if config_error:
+        return config_error
+
+    origin = request.host_url.rstrip("/")
+    default_redirect = f"{origin}/login.html"
+    redirect_to = request.args.get("redirect_to") or default_redirect
+
+    # Only ever bounce back to our own origin — the query param just
+    # picks the path, it can't be used to redirect through Supabase to
+    # an attacker-controlled site.
+    if not redirect_to.startswith(origin):
+        redirect_to = default_redirect
+
+    authorize_url = f"{supabase_url}/auth/v1/authorize?provider=google&redirect_to={quote(redirect_to, safe='')}"
+    return redirect(authorize_url)
 
 
 @auth_bp.route('/login', methods=['POST'])
