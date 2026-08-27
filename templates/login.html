@@ -56,6 +56,39 @@
             -webkit-font-smoothing: antialiased;
             font-family: 'Inter Tight', 'Plus Jakarta Sans', sans-serif;
         }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        #password-field .vivid-input {
+            padding-right: 46px !important;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(148, 163, 184, 0.6);
+            cursor: pointer;
+            transition: color .15s ease;
+        }
+
+        .password-toggle-btn:hover {
+            color: #ffffff;
+        }
+
+        .password-toggle-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
     </style>
     <!-- GSAP Core, SplitText (self-hosted copies of the Vivid Motion source libraries) -->
     <script src="assets/vivid/js/gsap.min.js"></script>
@@ -93,6 +126,9 @@
             <div class="vivid-field" id="password-field">
                 <input type="password" placeholder=" " required id="password-input" class="vivid-input has-float-label" />
                 <label for="password-input" class="vivid-field-label">Password</label>
+                <button type="button" id="toggle-password-btn" class="password-toggle-btn" aria-label="Show password" aria-pressed="false">
+                    <span class="material-symbols-outlined">visibility</span>
+                </button>
             </div>
             <div class="grid grid-cols-2 gap-4 mt-2" id="auth-actions">
                 <button type="button" id="signup-btn" class="vivid-btn is-neutral w-full">
@@ -188,6 +224,7 @@
             const passwordField = document.getElementById("password-field");
             const emailInput = document.getElementById("email-input");
             const passwordInput = document.getElementById("password-input");
+            const togglePasswordBtn = document.getElementById("toggle-password-btn");
             const otpInput = document.getElementById("otp-input");
             const authActions = document.getElementById("auth-actions");
             const otpSection = document.getElementById("otp-section");
@@ -409,6 +446,14 @@
 
             [emailInput, passwordInput, otpInput].forEach((input) => {
                 input.addEventListener("input", clearError);
+            });
+
+            togglePasswordBtn.addEventListener("click", () => {
+                const isHidden = passwordInput.type === "password";
+                passwordInput.type = isHidden ? "text" : "password";
+                togglePasswordBtn.querySelector(".material-symbols-outlined").textContent = isHidden ? "visibility_off" : "visibility";
+                togglePasswordBtn.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+                togglePasswordBtn.setAttribute("aria-pressed", isHidden ? "true" : "false");
             });
         });
     </script>
